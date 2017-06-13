@@ -82,8 +82,6 @@ class Register extends MX_Controller {
 
         $data['files'] = array(
 
-            APPPATH . 'modules/homepage/views/m-sidebar.php',
-
             APPPATH . 'modules/register/views/m-register-siswa.php',
 
         );
@@ -91,11 +89,10 @@ class Register extends MX_Controller {
         $data['cabang'] = $this->mcabang->get_all_cabang();
 
 
-        $this->parser->parse('templating/m-index', $data);
+        $this->parser->parse('templating/m-index-login', $data);
 
 
     }
-
 
 
 // function untuk menampilkan halaman untuk pendaftaran user siswa
@@ -771,36 +768,16 @@ class Register extends MX_Controller {
 //halam untulk memnberitahu link aktivassi ke email atau untuk meresen email
 
     public function verifikasi() {
-
-        //        $this->load->view('templating/t-header');
-
-        //        $this->load->view('vVerifikasi.php');
-
-        //        $this->load->view('templating/t-footer');
-
-
-
         $data = array(
-
             'judul_halaman' => 'Verifikasi Email - Sibejoo',
-
             'judul_header' => 'Welcome'
-
         );
-
-
 
         $data['files'] = array(
-
-            APPPATH . 'modules/homepage/views/m-sidebar.php',
-
             APPPATH . 'modules/register/views/m-verifikasi.php'
-
         );
 
-
-
-        $this->parser->parse('templating/m-index', $data);
+        $this->parser->parse('templating/m-index-login', $data);
 
     }
 
@@ -882,18 +859,12 @@ class Register extends MX_Controller {
 
         $data['files'] = array(
 
-            APPPATH . 'modules/templating/views/r-navbar-login.php',
-            // APPPATH . 'modules/homepage/views/v-header.php',
-
-            APPPATH . 'modules/register/views/r-lupapassword.php',
-
-            // APPPATH . 'modules/homepage/views/v-footer.php',
-
+            APPPATH . 'modules/register/views/m-lupapassword.php',
         );
 
 
 
-        $this->parser->parse('templating/r-index-login', $data);
+        $this->parser->parse('templating/m-index-login', $data);
 
     }
 

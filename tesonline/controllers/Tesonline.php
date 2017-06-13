@@ -29,8 +29,8 @@ public function index() {
         );
 
     $data['files'] = array(
-        APPPATH . 'modules/homepage/views/r-header-login.php',
-        APPPATH . 'modules/tesonline/views/r-test-show-tingkat.php',
+        APPPATH . 'modules/homepage/views/m-sidebar.php',
+        APPPATH . 'modules/tesonline/views/m-test-show-tingkat.php',
         );
 
     $data['sd'] = $this->load->mtingkat->getmapelbytingkatid(1);
@@ -38,7 +38,7 @@ public function index() {
     $data['sma'] = $this->load->mtingkat->getmapelipa();
     // print_r($data);
     $data['tingkat'] = $this->load->mtingkat->gettingkat();
-    $this->parser->parse('templating/r-index', $data);
+    $this->parser->parse('templating/m-index', $data);
 }
 
     #memilih matapelajaran yang akan dilakukan tesonline.
@@ -115,10 +115,10 @@ public function daftarlatihan() {
         'judul_tingkat' => '',
         );
 
-    $konten = 'modules/tesonline/views/r-mulai-test.php';
+    $konten = 'modules/tesonline/views/m-mulai-test.php';
 
     $data['files'] = array(
-        APPPATH.'modules/homepage/views/r-header-login.php',
+        APPPATH.'modules/homepage/views/m-sidebar.php',
         APPPATH . $konten
         );
 
@@ -136,7 +136,7 @@ public function daftarlatihan() {
     $data['latihan'] = $this->load->mlatihan->get_latihan($this->session->userdata['USERNAME']);
 
     $this->session->unset_userdata('id_pembahasan');
-    $this->parser->parse('templating/r-index', $data);
+    $this->parser->parse('templating/m-index', $data);
 }
 
 public function test() {
@@ -255,6 +255,58 @@ public function pembahasanlatihan() {
             $this->session->set_userdata('id_tingkat', $id);
             echo json_encode($id);
         
+    }
+
+    // fungsi untuk view score 
+    public function detail_score($id_latihan) {
+    $data = array(
+        'judul_halaman' => 'Sibejoo - Score Latihan',
+        'judul_header' => 'History Latihan',
+        'judul_tingkat' => '',
+        );
+
+    $konten = 'modules/tesonline/views/m-score.php';
+
+    $data['files'] = array(
+        APPPATH.'modules/homepage/views/m-sidebar.php',
+        APPPATH . $konten
+        );
+
+    if ($this->session->userdata['HAKAKSES']=='ortu') {
+        //untuk mengambil report jika ortu yang login 
+        $data['report'] = $this->mtesonline->get_report_detail($this->session->userdata['NAMAORTU'], $id_latihan);
+    }
+        else{
+        // get report berdasarkan latihan
+        $data['report'] = $this->mtesonline->get_report_detail($this->session->userdata['USERNAME'],$id_latihan);
+    }
+        $data['nm_latihan'] = $data['report'][0]['nm_latihan'];
+        $this->session->unset_userdata('id_pembahasan');
+        $this->parser->parse('templating/m-index', $data);
+    }
+
+    #memilih tingkat, jumlah yang akan dilakukan tesonline.
+    public function next($idtingkatpel) {
+        $data = array(
+            'judul_halaman' => 'Sibejoo - Pilih Mata Pelajaran',
+            'judul_header' => 'Latihan Online'
+            );
+        if ($this->session->userdata('NAMASISWA')) {
+            $konten = 'modules/tesonline/views/m-next.php';
+
+            $data['files'] = array(
+                APPPATH.'modules/homepage/views/m-sidebar.php',
+                APPPATH . $konten
+                );
+        } else {
+            redirect('login');
+        }
+
+        $data['bab'] = $this->mtingkat->getbabbytingkatid($idtingkatpel);
+        $data['mp'] = $data['bab'][0]['namaMataPelajaran'];
+                
+        $this->parser->parse('templating/m-index', $data);
+
     }
 
 }

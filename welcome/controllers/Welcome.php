@@ -39,9 +39,8 @@ class Welcome extends MX_Controller {
         );
 
     $data['files'] = array( 
-        APPPATH.'modules/homepage/views/r-header-login.php',
-        APPPATH.'modules/welcome/views/r-container-graph.php',
-        // APPPATH.'modules/testimoni/views/v-footer.php',
+        APPPATH.'modules/homepage/views/m-sidebar.php',
+        APPPATH.'modules/welcome/views/m-container-graph.php',
         );
 
     if ($this->session->userdata('HAKAKSES')=='ortu') {
@@ -62,11 +61,15 @@ class Welcome extends MX_Controller {
     $data['latihan'] = $this->msiswa->get_limit_persentase_latihan(3);
     $data['pesan'] = $this->msiswa->get_pesan();
 
-    $this->parser->parse( 'templating/r-index', $data );
+    $this->parser->parse( 'templating/m-index', $data );
 
 
 }
 
+public function tes()
+{
+    $this->load->view('m-container-graph');
+}
 
 public function faq(){
  $data = array(

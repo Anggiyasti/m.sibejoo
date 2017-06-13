@@ -411,6 +411,29 @@ public function get_laporan_to(){
     $result = $this->db->query($query);
     return $result->result_array(); 
 }
+
+function get_paket_reported_score($datas){
+    $id = $datas['id_tryout'];
+    $id_pengguna = $datas['id_pengguna'];
+    $id_siswa = $datas['id_siswa'];
+    $id_paket = $datas['id_paket'];
+
+    $query = "
+    SELECT *,p.id_paket,`nm_paket`,mmt.`id`,rp.`id_report` FROM `tb_hakakses-to` ha
+    JOIN tb_siswa s ON s.`id` = ha.`id_siswa`
+    JOIN tb_tryout t ON t.`id_tryout` = ha.`id_tryout`
+    JOIN `tb_mm-tryoutpaket` mmt ON mmt.`id_tryout` = t.`id_tryout`
+    JOIN `tb_paket` p ON p.`id_paket` = mmt.`id_paket` 
+    LEFT JOIN `tb_report-paket` rp ON rp.`id_mm-tryout-paket` = mmt.`id`
+
+    WHERE id_siswa =$id_siswa AND 
+    t.`id_tryout`= $id AND rp.siswaID = $id_siswa
+    AND p.id_paket=$id_paket
+    ";
+    $result = $this->db->query($query);
+    return $result->result_array();        
+}
+
 }
 
 ?>

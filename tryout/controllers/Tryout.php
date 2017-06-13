@@ -39,12 +39,11 @@ class Tryout extends MX_Controller {
             'judul_tingkat' => '',
             );
 
-        $konten = 'modules/tryout/views/r-daftar-to.php';
+        $konten = 'modules/tryout/views/m-daftar-to.php';
 
         $data['files'] = array(
-            APPPATH . 'modules/homepage/views/r-header-login.php',
+            APPPATH . 'modules/homepage/views/m-sidebar.php',
             APPPATH . $konten,
-            APPPATH . 'modules/templating/views/r-footer.php',
             
             );
         if ($this->session->userdata('HAKAKSES')=='ortu') {
@@ -58,7 +57,7 @@ class Tryout extends MX_Controller {
         $datas['id_siswa'] = $this->Mtryout->get_id_siswa();
     }
         $data['tryout'] = $this->Mtryout->get_tryout_akses($datas);
-        $this->parser->parse('templating/r-index', $data);
+        $this->parser->parse('templating/m-index', $data);
     }
 
     public function create_seassoin_idto($id_to) {
@@ -116,11 +115,10 @@ class Tryout extends MX_Controller {
                 );
 
             // FILES
-            $konten = 'modules/tryout/views/r-daftar-paket.php';
+            $konten = 'modules/tryout/views/m-daftar-paket.php';
             $data['files'] = array(
-                APPPATH . 'modules/homepage/views/r-header-login.php',
+                APPPATH . 'modules/homepage/views/m-sidebar.php',
                 APPPATH . $konten,
-                APPPATH . 'modules/templating/views/r-footer.php',
                 );
             // DAFTAR PAKET
             $data['paket_dikerjakan'] = $this->Mtryout->get_paket_reported($datas);
@@ -132,7 +130,7 @@ class Tryout extends MX_Controller {
             $data['count_pesan'] = $this->Ortuback_model->get_count($id_pengguna);
 
 
-            $this->parser->parse('templating/r-index', $data);
+            $this->parser->parse('templating/m-index', $data);
             //unset session
             $this->session->unset_userdata('id_paketpembahasan');
             $this->session->unset_userdata('id_tryoutpembahasan');
@@ -350,6 +348,71 @@ class Tryout extends MX_Controller {
         }
       echo json_encode($array);
 
+    }
+
+    // score paket
+    public function score($id_paket)
+    {
+        if ($this->session->userdata('NAMASISWA')) {
+            $id_to = $this->session->userdata('id_tryout');
+            $datas['id_tryout'] = $id_to;
+            $datas['id_pengguna'] = $this->session->userdata('id');
+            $datas['id_siswa'] = $this->msiswa->get_siswaid();
+            $datas['id_paket'] = $id_paket;
+
+            $data['nama_to'] = $this->Mtryout->get_tryout_by_id($id_to)[0]['nm_tryout'];
+            $data_to = $this->Mtryout->get_tryout_by_id($id_to)[0];
+            
+            $date = new DateTime(date("Y-m-d H:i:s"));
+            
+            // concat tanggal mlai dan tanggai akhir
+            $mulai = date("Y-m-d H:i:s ", strtotime($data_to['tgl_mulai']." ".$data_to['wkt_mulai']));
+            $akhir = date("Y-m-d H:i:s ", strtotime($data_to['tgl_berhenti']." ".$data_to['wkt_berakhir']));
+
+            //buat date
+            $date_mulai =  new DateTime($mulai);
+            $date_berhenti =  new DateTime($akhir);
+
+            // nama paket
+            $nm_paket = $this->Mtryout->get_paket_reported_score($datas)[0]['nm_paket'];
+
+
+            if (isset($id_to)) {
+                $data = array(
+                    'judul_halaman' => 'Sibejoo - Score Tryout',
+                    'judul_header' => 'Tryout : ' . $data['nama_to'],
+                    'judul_tingkat' => '',
+                    'nama_to' => $data_to['nm_tryout'],
+                    'nama_paket' => $nm_paket
+                    );
+
+                // FILES
+                $konten = 'modules/tryout/views/m-score.php';
+                $data['files'] = array(
+                    APPPATH . 'modules/homepage/views/m-sidebar.php',
+                    APPPATH . $konten,
+                    );
+                // DAFTAR PAKET
+                $data['paket_dikerjakan'] = $this->Mtryout->get_paket_reported_score($datas);
+                $data['paket'] = $this->Mtryout->get_paket_undo($datas);
+
+                // HITUNG NILAI
+                $jmlh_benar = $data['paket_dikerjakan'][0]['jmlh_benar'];
+                $jmlh_soal = $data['paket_dikerjakan'][0]['jumlah_soal'];
+                $data['nilai'] = round(($jmlh_benar/$jmlh_soal)*100,2);
+
+                $this->parser->parse('templating/m-index', $data);
+                //unset session
+                $this->session->unset_userdata('id_paketpembahasan');
+                $this->session->unset_userdata('id_tryoutpembahasan');
+                $this->session->unset_userdata('id_mm-tryoutpaketpembahasan');
+            } else {
+                //kalo gak ada session
+                redirect('tryout');
+            }
+        } else {
+            redirect('login');
+        }
     }
 }
 ?>

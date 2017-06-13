@@ -37,6 +37,9 @@
 <body>
 <div class="statusbar-overlay"></div>
 <div class="panel-overlay"></div>
+    <!-- Views -->
+<div class="views">
+    <div class="view view-main">
 
         <script type="text/javascript">var base_url = "<?= base_url() ?>"</script>
         <?php
@@ -45,15 +48,15 @@
           include ($key);
         }
         ?>
+    </div>
+</div>
 
 <!-- Footer Scripts -->
 <script type="text/javascript" src="<?=base_url('assets/mobile/bower_components/jquery/dist/jquery.min.js')?>"></script>
-<script type="text/javascript" src="<?=base_url('assets/mobile/bower_components/framework7/dist/js/framework7.min.js')?>"></script>
 <script type="text/javascript" src="<?=base_url('assets/mobile/bower_components/swipebox/src/js/jquery.swipebox.min.js')?>"></script>
 <script type="text/javascript" src="<?=base_url('assets/mobile/bower_components/jquery-validation/dist/jquery.validate.min.js')?>"></script>
 <script type="text/javascript" src="<?=base_url('assets/mobile/bower_components/Tweetie/tweetie.min.js')?>"></script>
 <script type="text/javascript" src="<?=base_url('assets/mobile/bower_components/chartjs/Chart.js')?>"></script>
 <script type="text/javascript" src="<?=base_url('assets/mobile/js/jflickrfeed.min.js')?>"></script>
-<script type="text/javascript" src="<?=base_url('assets/mobile/js/min/app.js')?>"></script>
 </body>
 </html>

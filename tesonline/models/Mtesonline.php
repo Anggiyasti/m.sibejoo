@@ -77,6 +77,17 @@ class Mtesonline extends CI_Model {
         $query = $this->db->get();
         return $query->result();
     }
+
+    // get report by id latihan
+    public function get_report_detail($createdby,$id_latihan){
+        $query = "SELECT * 
+                    FROM `tb_latihan` `latihan` 
+                    JOIN `tb_report-latihan` `report` ON `latihan`.`id_latihan`=`report`.`id_latihan` 
+                    WHERE `latihan`.`create_by` = '$createdby' AND `latihan`.`id_latihan`= '$id_latihan'";
+        $query = $this->db->query($query);
+        return $query->result_array();
+
+    }
 }
 
 ?>

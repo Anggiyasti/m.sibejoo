@@ -32,12 +32,10 @@ class Login extends MX_Controller {
         );
 
     $data['files'] = array(
-        APPPATH . 'modules/homepage/views/m-sidebar.php',
         APPPATH . 'modules/login/views/m-login.php',
-        // APPPATH . 'modules/homepage/views/v-footer.php',
         );
 
-    $this->parser->parse('templating/m-index', $data);
+    $this->parser->parse('templating/m-index-login', $data);
 }
 
 
