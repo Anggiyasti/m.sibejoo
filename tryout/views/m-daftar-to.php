@@ -46,7 +46,7 @@
                                     Masa Berlaku : <?=$date3->d." Hari" ?> <br>
                                     Keaktivan : <?=$sisa->days ?> Hari
                                 </blockquote>
-                                <a onclick="lihat_detail(<?=$tryout_item['id_tryout'];?>)" class="button button-big js-form-submit button-fill button-primary">Lihat Paket Soal</a>
+                                <a onclick="lihat_detail(<?=$tryout_item['id_tryout'];?>)" class="button button-small js-form-submit button-fill button-primary">Lihat Paket Soal</a>
                             </div>
                             <?php endforeach ?>
                         </div>

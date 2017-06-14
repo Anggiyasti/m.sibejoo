@@ -229,7 +229,7 @@ class Tryout extends MX_Controller {
             $data['soal'] = $query['soal'];
             $data['pil'] = $query['pil'];
 
-            $this->load->view('v-pembahasanto.php', $data);
+            $this->load->view('m-pembahasanto.php', $data);
             $this->load->view('footerpembahasan', $data);
         } else {
             $this->errorTest();

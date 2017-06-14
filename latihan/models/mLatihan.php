@@ -101,7 +101,7 @@ class Mlatihan extends CI_Model
 		$this->db->join('tb_report-latihan report',
 			'latihan.id_latihan=report.id_latihan');
 		$this->db->where('create_by', $createdby);
-		$this->db->order_by('tgl_pengerjaan', 'asc');
+		$this->db->order_by('tgl_pengerjaan', 'desc');
 		$query = $this->db->get();
 		return $query->result_array();
 
@@ -111,10 +111,10 @@ class Mlatihan extends CI_Model
 
 	public function get_latihan($createdby){
 		$this->db->select('*');
-		$this->db->from('tb_latihan latihan');
+		$this->db->from('tb_latihan');
 		$this->db->where('create_by', $createdby);
 		$this->db->where('status_pengerjaan', '1');
-
+		$this->db->order_by('date_created', 'desc');
 		$query = $this->db->get();
 		return $query->result_array();
 

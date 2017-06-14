@@ -31,7 +31,7 @@ class Ortuback extends MX_Controller {
 		if ($this->hakakses=='ortu') {
 			$this->parser->parse('templating/index', $data);
 		}elseif ($this->hakakses=='siswa'){
-			$this->parser->parse('templating/r-index', $data); 		
+			$this->parser->parse('templating/m-index', $data); 		
 		}else {
 			echo "forbidden access";   
 		}
@@ -120,7 +120,7 @@ class Ortuback extends MX_Controller {
 	}
 
 	// FUNGSI UNTUK VIEW PESAN ORTU DAN SISWA
-	public function pesan($UUID="")
+	public function pesan_backup($UUID="")
 	{
 		$id = $this->session->userdata('id'); 
 		// kodisi jika login sebagai ortu, maka id pengguna yang digunakan berbeda dengan siswa
@@ -483,6 +483,44 @@ class Ortuback extends MX_Controller {
 		}
 		$this->Ortuback_model->in_data_ortu($ortu);
 		echo json_encode($ortu);
+	}
+
+	public function pesan()
+	{
+		
+
+		// kodisi jika login sebagai ortu, maka id pengguna yang digunakan berbeda dengan siswa
+		if ($this->session->userdata('HAKAKSES')=='ortu') {
+            $id_pengguna = $this->session->userdata('NAMAORTU');  
+        }else{
+            $id_pengguna = $this->session->userdata('USERNAME');  
+        } 
+		$namadepan = $this->Ortuback_model->namasiswa($id_pengguna)[0]['namaDepan'];
+		$namabelakang = $this->Ortuback_model->namasiswa($id_pengguna)[0]['namaBelakang'];
+			
+		$data['judul_halaman'] = "Laporan $namadepan $namabelakang";
+
+		$hakAkses = $this->session->userdata['HAKAKSES'];
+		$data = array(
+        'judul_halaman' => 'Sibejoo - Daftar Pesan',
+        'judul_header' => 'History Pesan',
+        'judul_tingkat' => '',
+        );
+
+		$data['files'] = array(
+			APPPATH.'modules/homepage/views/m-sidebar.php',
+			APPPATH . 'modules/ortuback/views/m-daftar-report.php'		
+		);
+
+		$datas = ['jenis'=>'nilai'];
+		// kodisi jika login sebagai ortu, maka id pengguna yang digunakan berbeda dengan siswa
+		if ($this->session->userdata('HAKAKSES')=='ortu') {
+            $id_pengguna = $this->session->userdata('NAMAORTU');  
+        }else{
+            $id_pengguna = $this->session->userdata('USERNAME');  
+        } 
+		$data['msg'] = $this->Ortuback_model->get_report_all($datas,$id_pengguna);
+		$this->loadparser($data);
 	}
 }
 

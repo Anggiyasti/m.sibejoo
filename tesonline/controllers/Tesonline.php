@@ -129,10 +129,10 @@ public function daftarlatihan() {
         $id_pengguna= $this->session->userdata['id'];
         $data['datLapor'] = $this->Ortuback_model->get_daftar_pesan($id_pengguna);
         $data['count_pesan'] = $this->Ortuback_model->get_count($id_pengguna);
-}
-    else{
-    $data['report'] = $this->load->mlatihan->get_report($this->session->userdata['USERNAME']);
-}
+    }
+        else{
+        $data['report'] = $this->load->mlatihan->get_report($this->session->userdata['USERNAME']);
+    }
     $data['latihan'] = $this->load->mlatihan->get_latihan($this->session->userdata['USERNAME']);
 
     $this->session->unset_userdata('id_pembahasan');
@@ -170,7 +170,7 @@ public function mulaiTest() {
         $data['soal'] = $query['soal'];
         $data['pil'] = $query['pil'];
 
-        $this->load->view('vHalamanTest.php', $data);
+        $this->load->view('m-HalamanTest.php', $data);
         $this->load->view('templating/t-footersoal');
     } else {
         $this->errorTest();
@@ -241,7 +241,7 @@ public function pembahasanlatihan() {
         $data['soal'] = $query['soal'];
         $data['pil'] = $query['pil'];
 
-        $this->load->view('vPembahasan.php', $data);
+        $this->load->view('m-Pembahasan.php', $data);
         $this->load->view('footerpembahasan.php');
     } else {
         $this->errorTest();
