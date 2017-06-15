@@ -33,7 +33,7 @@
                 <div class="categories">
                   <ul class="list list-border angle-double-right">
 
-                    <li><a href="<?=base_url('index.php')?>/linetopik/learningline/<?=$key['babID']?>"><?=$key['judulBab']?></a></li>
+                    <li><a href="<?=base_url('index.php')?>/linetopik/learningline/<?=$key['babID']?>"><?=$key['judulBab']?></a></li> 
                   </ul>
                 </div>
                 <?php $oldMpalel=$mapel; ?>

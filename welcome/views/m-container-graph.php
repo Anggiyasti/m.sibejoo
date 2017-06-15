@@ -48,7 +48,7 @@
                                 </a>
                             </div>
                             <div class="col-33">
-                                <a href="features.html" class="menu-link">
+                                <a onclick="learningline()" class="menu-link">
                                     <span class="icon-magic-wand"></span>
                                     <span>Learning Line</span>
                                 </a>
@@ -208,4 +208,8 @@
     function video() {
         window.location.href = base_url + "video";
     }
+     function learningline() {
+        window.location.href = base_url + "linetopik/pilih_tingkat";
+    }
+    
 </script>

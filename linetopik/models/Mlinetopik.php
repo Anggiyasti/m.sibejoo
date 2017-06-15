@@ -333,7 +333,23 @@
        $query = $this->db->get();
        return $query->result_array();
     }
+// get line topik by id topik
+    public function get_line_by_topik($topikID)
+    {
+        $this->db->select('namaTopik,step.UUID as stepUUID, namaStep, jenisStep, topik.deskripsi, bab.judulBab,tp.keterangan, tkt.aliasTingkat, step.latihanID,step.id as stepID, step.urutan');
+        $this->db->from('tb_line_topik topik');
+        $this->db->join('tb_line_step step','step.topikID=topik.id');
+        $this->db->join('tb_bab bab','bab.id=topik.babID');
+        $this->db->join('tb_tingkat-pelajaran tp','tp.id=bab.tingkatPelajaranID');
+        $this->db->join('tb_tingkat tkt','tkt.id=tp.tingkatID');
+        // $this->db->where('bab.id',$babID);
+        $this->db->where('topik.id',$topikID);
+        $this->db->order_by('topik.namaTopik');
+        $this->db->order_by('step.urutan', 'asc');
+        $query=$this->db->get();
+        return  $query->result_array();
 
+    }
 
 
 

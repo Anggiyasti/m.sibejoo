@@ -21,11 +21,46 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  		echo "string";
  	}
 
+    public function pilih_tingkat(){
+        $data = array(
+            'judul_halaman' => 'Sibejoo - Learning Line',
+            'judul_header' => 'Pilih Tingkat',
+            'judul_tingkat' => '',
+        );
+        $data['files'] = array(
+            APPPATH . 'modules/homepage/views/m-sidebar.php',
+            APPPATH . 'modules/linetopik/views/m-pilih-tingkat.php',
+            // APPPATH . 'modules/homepage/views/v-footer.php',
+        );
+        $this->parser->parse('templating/m-index', $data);
+
+    }
+
     // tampung id tingkar
     public function ambiltingkat()
     {   
             $id = $this->input->post('id_tingkat');
             $this->session->set_userdata('id_tingkat', $id);
+            echo json_encode($id);
+        
+    }
+
+     // tampung id bab
+    public function tampungid_bab()
+    {   
+            $id = $this->input->post('id_bab');
+            $this->session->set_userdata('id_bab', $id);
+            echo json_encode($id);
+        
+    }
+
+
+
+     // tampung id topik
+    public function tampungid_topik()
+    {   
+            $id = $this->input->post('id_topik');
+            $this->session->set_userdata('id_topik', $id);
             echo json_encode($id);
         
     }
@@ -43,18 +78,19 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
         $data['datMapel'] = $this->Mlinetopik->get_mapel($tingkatID);
         $data['files'] = array(
-            APPPATH . 'modules/homepage/views/r-header-login.php',
-            APPPATH . 'modules/linetopik/views/r-line-mapel.php',
+            APPPATH . 'modules/homepage/views/m-sidebar.php',
+            APPPATH . 'modules/linetopik/views/m-line-mapel.php',
             // APPPATH . 'modules/homepage/views/v-footer.php',
         );
-        $this->parser->parse('templating/r-index', $data);
+        $this->parser->parse('templating/m-index', $data);
     }
 
- 	public function learningLine($babID)
+ 	public function learningLine()
  	{
+        $babID = $this->session->userdata['id_bab'];
  		$data = array(
-      'judul_halaman' => 'Sibejoo - Welcome',
-      'judul_header' => 'Welcome',
+      'judul_halaman' => 'Sibejoo - Topik',
+      'judul_header' => 'Topik',
       'judul_header2' =>'Time Line'
     );
 
@@ -126,12 +162,106 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             $step = $log;
  		}
         $data['files'] = array(
-            APPPATH . 'modules/homepage/views/r-header-login.php',
-            APPPATH . 'modules/linetopik/views/r-line-topik.php',
+            APPPATH . 'modules/homepage/views/m-sidebar.php',
+            APPPATH . 'modules/linetopik/views/m-line-topik.php',
             // APPPATH . 'modules/homepage/views/v-footer.php',
         );
-        $this->parser->parse('templating/r-index-login', $data);
+        $this->parser->parse('templating/m-index', $data);
  	}
+
+    public function learn()
+    {
+        $topikID = $this->session->userdata['id_topik'];
+        if ($this->session->userdata('NAMASISWA')) {
+            $dat=$this->Mlinetopik->get_line_by_topik($topikID);
+            $topik = $dat[0]['namaTopik'];
+            $data = array(
+              'judul_halaman' => 'Neon - Learning Line',
+              'judul_header' => 'Topik',
+              'judul_header2' =>'Time Line',
+              'judul_topik' => $topik
+            );
+
+
+            //list topik side bar
+            // $data['topik']=$this->Mlinetopik->get_topik($babID);
+            
+            $data['datline']=array(); 
+            $step=false;
+            foreach ($dat as $rows) {
+                $tampJenis = $rows['jenisStep'];
+                $UUID = $rows['stepUUID'];
+                $stepID = $rows['stepID'];
+                $urutan = $rows ['urutan'];
+                // pengecekan jenis step line
+                if ($tampJenis == '1') {
+                    // jika step line video
+                    $jenis='Video';
+                    // pengecekan disable atau enable step
+                    if ($step == true || $urutan == '1' ) {
+                        $icon='ico-movie ';
+                        $link = base_url('index.php/linetopik/step_video/').$UUID;
+                        $status ="enable";
+                    } else {
+                        $icon='ico-movie';
+                        $link = 'javascript:void(0)';
+                        $status ="disable";
+                    }
+
+                }else if ($tampJenis == '2') {
+            // jika step line Materi atau modul
+                    $jenis='Materi';
+                    // pengecekan disable atau enable step
+              if ($step == true || $urutan == '1' ) {
+                  $icon ='ico-file6';
+                  $link = base_url('index.php/linetopik/step_materi/').$UUID;
+                  $status ="enable";
+              } else {
+                 $icon='ico-file6';
+                 $link = 'javascript:void(0)';
+                 $status ="disable";
+              }
+                }else{
+                    // jika step line latihan atau quiz
+                    $jenis='Latihan';
+                    // pengecekan disable atau enable step
+                    if ($step == true || $urutan == '1' ) {
+                       $icon ='ico-pencil';
+                      $latihanID = $rows['latihanID'];
+                       $link = base_url('index.php/linetopik/create_session_id_latihan/').$latihanID;
+                       $status ="enable";
+                    } else {
+                      $icon='ico-pencil';
+                     $link = 'javascript:void(0)';
+                     $status ="disable";
+                    }
+                }
+                $data['datline'][]=array(
+                    'namaTopik'=>$rows['namaTopik'],
+                    'deskripsi'=>$rows['deskripsi'],
+                    'namaStep'=> $rows['namaStep'],
+                    'bab'=>$rows['judulBab'],
+                    'mapel'=>$rows['keterangan'],
+                    'tingkat'=>$rows['aliasTingkat'],
+                    'jenisStep'=>$jenis,
+                    'icon' =>$icon,
+                    'link' => $link,
+                    'status'=>$status);
+                $log=$this->Mlinetopik->get_log($stepID);
+                $step = $log;
+            }
+            $data['files'] = array(
+                APPPATH . 'modules/homepage/views/m-sidebar.php',
+                APPPATH . 'modules/linetopik/views/m-line.php',
+                // APPPATH . 'modules/templating/views/anggi/v-footer.php',
+            );
+            $penggunaID = $this->session->userdata['id'];
+            // $data['siswa'] = $this->load->msiswa->get_siswapoto($penggunaID);
+            $this->parser->parse('templating/m-index', $data);
+        } else {
+            redirect('login');
+        }
+    }
 
  	// view step video
  	public function step_video($UUID)
