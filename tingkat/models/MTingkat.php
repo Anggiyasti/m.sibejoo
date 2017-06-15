@@ -128,8 +128,21 @@ class MTingkat extends CI_Model {
 		$query = $this->db->get();
 
 		return $query->result_array();
-
 	}
+
+	/*Mengambil nama mata pelajaran*/
+	function get_mp($tingkatid){
+		$this->db->select('keterangan');
+		$this->db->from('tb_tingkat-pelajaran');
+		$this->db->where( 'id', $tingkatid );
+
+		$query = $this->db->get();
+		if($query->num_rows() == 1) {
+            return $query->result_array()[0]['keterangan'];
+        }else{
+             return $query='';
+        }
+	}	
 }
 
 ?>

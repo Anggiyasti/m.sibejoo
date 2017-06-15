@@ -303,7 +303,7 @@ public function pembahasanlatihan() {
         }
 
         $data['bab'] = $this->mtingkat->getbabbytingkatid($idtingkatpel);
-        $data['mp'] = $data['bab'][0]['namaMataPelajaran'];
+        $data['mp'] = $this->mtingkat->get_mp($idtingkatpel);
                 
         $this->parser->parse('templating/m-index', $data);
 
