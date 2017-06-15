@@ -39,20 +39,18 @@ class Siswa extends MX_Controller {
     public function profilesetting() {
         if ($this->get_status_login()) {
             $data = array(
-                'judul_halaman' => 'Neon - Pengaturan Akun',
+                'judul_halaman' => 'Sibejoo - Pengaturan Akun',
                 'judul_header'  => 'Pengaturan Akun',
                 'judul_header2' => 'Pengaturan Akun'
                 );
 
             $data['files'] = array( 
-                APPPATH.'modules/homepage/views/v-header-login.php',
-                APPPATH.'modules/siswa/views/headersiswa.php',
-                APPPATH.'modules/siswa/views/vPengaturanProfile.php',
-                APPPATH.'modules/testimoni/views/v-footer.php',
+                APPPATH.'modules/homepage/views/m-sidebar.php',
+                APPPATH.'modules/siswa/views/m-PengaturanProfile.php',
                 );
 
             $data['siswa'] = $this->msiswa->get_datsiswa();
-            $this->parser->parse( 'templating/index', $data );
+            $this->parser->parse( 'templating/m-index', $data );
         }else{
             redirect('login');
         }
@@ -226,6 +224,7 @@ public function ubahkatasandi() {
             if ($kataSandi == $inputSandi) {
                 $this->session->set_flashdata('updsiswa', 'Passwordmu telah berubah');
                 $this->msiswa->update_katasandi($data_post);
+                redirect(site_url('siswa/profilesetting'));
             } else {
                 $this->session->set_flashdata('updsiswa', 'Password gagal  dirubah, password lama salah');
                 redirect(site_url('siswa/profilesetting'));
