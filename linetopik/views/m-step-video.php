@@ -29,6 +29,32 @@
                 <div class="page-content">
                 <div class="list-block mt-0 blog-box">
                 <ul>
+            <div class=" delay-1" id="test">
+            <div class="card  delay-2">
+              <!-- START ROW -->
+              <div class="row">
+              <h3>Judul Video : <?=$datVideo['judulVideo']?></h3>
+                <?php if ($datVideo['link']=='' || $datVideo['link']==' '): ?>
+                  <div class="container-video color-palette bg-color-6alt">
+                    <video class="" width="100%" height="100%"  controls>
+                      <source src="<?=base_url();?>assets/video/<?=$datVideo['namaFile'];?>" >
+                        Your browser does not support the video tag.
+                    </video>
+                  </div>
+                <?php endif ?>
+                <?php if ($datVideo['namaFile']=='' || $datVideo['namaFile']==' '): ?>
+                <div class="video-player" style="background:grey;">
+                  <iframe src="<?=$datVideo['link']?>" width="100%" height="300" frameborder="0" allowfullscreen></iframe> 
+                </div>
+                <?php endif ?>
+                <h3>Deskripsi</h3>
+                <p><?=$datVideo['deskripsiVideo']?></p>
+              </div>
+              <!-- END ROW -->
+            </div>
+          </div>
+            </ul>
+                <ul>
             <div class="container activity p-l-r-20">
             <div class="row m-l-0">
               <div class="col">
@@ -42,7 +68,6 @@
                   </div>
                   <div class="step">
                   <p>
-
                   <?php if ($key['icon'] == 'ico-movie'): ?>
                   
                     <a onclick="stepvideo('<?=$key['uuid'];?>')" class="media-heading"  id="font-<?=$i;?>" ><?=$key['namaStep']?></a>
@@ -52,8 +77,8 @@
                     <a onclick="steplatihan('<?=$key['latid'];?>')" class="media-heading"  id="font-<?=$i;?>" ><?=$key['namaStep']?></a>
                     <?php else: ?>
                     <a href="<?=$key['link'];?>#test" class="media-heading"  id="font-<?=$i;?>" ><?=$key['namaStep']?></a>
-                    <?php endif ?>
 
+                    <?php endif ?>
                   </p>
                   <!-- Untuk menampung staus step disable or enable -->
                   <input type="hidden" id="status-<?=$i;?>" value="<?=$key["status"];?>" >
@@ -70,7 +95,6 @@
                 <!-- <input type="text" name="t" value="gg" hidden="true"> -->
               <!-- END Tieme line -->
 
-              </div>
               </div>
             </div>
             </ul>   
@@ -201,3 +225,7 @@
     }
     
 </script>
+
+
+
+

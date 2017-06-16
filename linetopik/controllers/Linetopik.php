@@ -54,13 +54,29 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         
     }
 
-
-
      // tampung id topik
     public function tampungid_topik()
     {   
             $id = $this->input->post('id_topik');
             $this->session->set_userdata('id_topik', $id);
+            echo json_encode($id);
+        
+    }
+
+    // tampung id topik
+    public function tampungUUID()
+    {   
+            $id = $this->input->post('uuid');
+            $this->session->set_userdata('uuid', $id);
+            echo json_encode($id);
+        
+    }
+
+     // tampung id topik
+    public function tampunglatihan()
+    {   
+            $id = $this->input->post('latihanid');
+            $this->session->set_userdata('id_lat', $id);
             echo json_encode($id);
         
     }
@@ -114,7 +130,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     $link = base_url('index.php/linetopik/step_video/').$UUID;
                     $status ="enable";
                 } else {
-                    $icon='ico-movie';
+                    $icon='ico-movie2';
                     $link = 'javascript:void(0)';
                     $status ="disable";
                 }
@@ -128,7 +144,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
               $link = base_url('index.php/linetopik/step_materi/').$UUID;
               $status ="enable";
           } else {
-             $icon='ico-file6';
+             $icon='ico-file5';
              $link = 'javascript:void(0)';
              $status ="disable";
           }
@@ -142,7 +158,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                    $link = base_url('index.php/linetopik/create_session_id_latihan/').$latihanID;
                    $status ="enable";
                 } else {
-                  $icon='ico-pencil';
+                  $icon='ico-pencil2';
                  $link = 'javascript:void(0)';
                  $status ="disable";
                 }
@@ -176,7 +192,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             $dat=$this->Mlinetopik->get_line_by_topik($topikID);
             $topik = $dat[0]['namaTopik'];
             $data = array(
-              'judul_halaman' => 'Neon - Learning Line',
+              'judul_halaman' => 'Sibejoo - Learning Line',
               'judul_header' => 'Topik',
               'judul_header2' =>'Time Line',
               'judul_topik' => $topik
@@ -199,11 +215,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     $jenis='Video';
                     // pengecekan disable atau enable step
                     if ($step == true || $urutan == '1' ) {
-                        $icon='ico-movie ';
-                        $link = base_url('index.php/linetopik/step_video/').$UUID;
+                        $icon='ico-movie';
+                        $link = $UUID;
                         $status ="enable";
                     } else {
-                        $icon='ico-movie';
+                        $icon='ico-movie2';
                         $link = 'javascript:void(0)';
                         $status ="disable";
                     }
@@ -214,10 +230,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     // pengecekan disable atau enable step
               if ($step == true || $urutan == '1' ) {
                   $icon ='ico-file6';
-                  $link = base_url('index.php/linetopik/step_materi/').$UUID;
+                  $link = $UUID;
                   $status ="enable";
               } else {
-                 $icon='ico-file6';
+                 $icon='ico-file5';
                  $link = 'javascript:void(0)';
                  $status ="disable";
               }
@@ -231,7 +247,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                        $link = base_url('index.php/linetopik/create_session_id_latihan/').$latihanID;
                        $status ="enable";
                     } else {
-                      $icon='ico-pencil';
+                      $icon='ico-pencil2';
                      $link = 'javascript:void(0)';
                      $status ="disable";
                     }
@@ -246,7 +262,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     'jenisStep'=>$jenis,
                     'icon' =>$icon,
                     'link' => $link,
-                    'status'=>$status);
+                    'status'=>$status,
+                    'uuid'=>$UUID,
+                    'latid'=>$rows['latihanID']
+                    );
                 $log=$this->Mlinetopik->get_log($stepID);
                 $step = $log;
             }
@@ -264,8 +283,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     }
 
  	// view step video
- 	public function step_video($UUID)
+ 	public function step_video()
  	{
+        $UUID = $this->session->userdata['uuid'];
         // pengecekan jika snip url
         $snip=$this->Mlinetopik->get_stepLog($UUID);
         if ($snip==false) {
@@ -306,11 +326,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 $jenis='Video';
                 // pengecekan disable atau enable step
                 if ($step == true || $urutan == '1' ) {
-                    $icon='ico-movie ';
-                    $link = base_url('index.php/linetopik/step_video/').$stepUUID;
+                    $icon='ico-movie';
+                    $link =$stepUUID;
                     $status ="enable";
                 } else {
-                   $icon='ico-movie';
+                   $icon='ico-movie2';
                     $link = 'javascript:void(0)';
                     $status ="disable";
                 }
@@ -318,11 +338,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 $jenis='Materi';
                 // pengecekan disable atau enable step
                 if ($step == true || $urutan == '1' ) {
-                    $icon =' ico-file6';
-                    $link = base_url('index.php/linetopik/step_materi/').$stepUUID;
+                    $icon ='ico-file6';
+                    $link = $stepUUID;
                     $status ="enable";
                 } else {
-                   $icon =' ico-file6';
+                   $icon ='ico-file5';
                     $link = 'javascript:void(0)';
                     $status ="disable";
                 }
@@ -335,7 +355,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                    $link = base_url('index.php/linetopik/create_session_id_latihan/').$latihanID;
                    $status ="enable";
                 } else {
-                    $icon ='ico-pencil';
+                    $icon ='ico-pencil2';
                     $link = 'javascript:void(0)';
                     $status ="disable";
                 }
@@ -349,7 +369,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 'jenisStep'=>$jenis,
                 'icon' =>$icon,
                 'link' => $link,
-                'status'=>$status);
+                'status'=>$status,
+                'uuid'=>$stepUUID,
+                'latid'=>$rows['latihanID']);
             $data['tingkat']  = $rows['aliasTingkat'];
             $data['mapel']   = $rows['keterangan'];
             $data['bab']      = $rows['judulBab'];
@@ -360,16 +382,16 @@ defined('BASEPATH') OR exit('No direct script access allowed');
           // END get data time untuk side bar
  		  $data['files'] = array(
 
-            APPPATH . 'modules/homepage/views/r-header-login.php',
+            APPPATH . 'modules/homepage/views/m-sidebar.php',
 
-            APPPATH . 'modules/linetopik/views/v-step-video.php',
+            APPPATH . 'modules/linetopik/views/m-step-video.php',
 
             // APPPATH . 'modules/homepage/views/v-footer.php',
 
         );
 
      
-        $this->parser->parse('templating/r-index-login', $data);
+        $this->parser->parse('templating/m-index', $data);
 
  	}
 
@@ -397,8 +419,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 
  	// View step Materi
- 	 	public function step_materi($UUID)
+ 	public function step_materi()
  	{
+        $UUID = $this->session->userdata['uuid'];
+
          $stepID= $this->Mlinetopik->get_stepID($UUID);
         $this->logLine($stepID);
  		 $data = array(
@@ -436,7 +460,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     $link = base_url('index.php/linetopik/step_video/').$stepUUID;
                     $status ="enable";
                 } else {
-                    $icon ='ico-movie';
+                    $icon ='ico-movie2';
                     $link = 'javascript:void(0)';
                     $status ="disable";
                 }
@@ -448,7 +472,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     $link = base_url('index.php/linetopik/step_materi/').$stepUUID;
                     $status ="enable";
                 } else {
-                    $icon ='ico-file6';
+                    $icon ='ico-file5';
                     $link = 'javascript:void(0)';
                     $status ="disable";
                 }
@@ -460,7 +484,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                    $link = base_url('index.php/linetopik/create_session_id_latihan/').$latihanID;
                    $status ="enable";
                 } else {
-                    $icon ='ico-pencil';
+                    $icon ='ico-pencil2';
                     $link = 'javascript:void(0)';
                     $status ="disable";
                 }
@@ -474,7 +498,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 'jenisStep'=>$jenis,
                 'icon' =>$icon,
                 'link' => $link,
-                'status'=>$status);
+                'status'=>$status,
+                'uuid' => $stepUUID,
+                'latid'=>$rows['latihanID']);
             $data['tingkat']  = $rows['aliasTingkat'];
             $data['mapel']   = $rows['keterangan'];
             $data['bab']      = $rows['judulBab'];
@@ -486,21 +512,20 @@ defined('BASEPATH') OR exit('No direct script access allowed');
          
  		  $data['files'] = array(
 
-          APPPATH.'modules/homepage/views/r-header-login.php',
+          APPPATH.'modules/homepage/views/m-sidebar.php',
 
-            APPPATH . 'modules/linetopik/views/v-step-materi.php',
+            APPPATH . 'modules/linetopik/views/m-step-materi.php',
 
             // APPPATH . 'modules/homepage/views/v-footer.php',
 
         );
 
 
-        $this->parser->parse('templating/r-index', $data);
+        $this->parser->parse('templating/m-index', $data);
 
  	}
 
     public function create_session_id_latihan($id_latihan){
-
         $this->session->set_userdata('id_latihan',$id_latihan);
         $UUID=$this->Mlinetopik->get_UUID($id_latihan);
       
@@ -522,7 +547,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             $data['soal'] = $query['soal'];
             $data['pil'] = $query['pil'];
             // $this->parser->parse('templating/index', $data);
-            $this->load->view('v-step-quiz.php', $data);
+            $this->load->view('m-step-quiz.php', $data);
             $this->load->view('templating/t-footersoal');
         } else {
             $this->errorTest();
@@ -612,7 +637,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     $status ="enable";
                     
                 } else {
-                    $icon ='ico-movie';
+                    $icon ='ico-movie2';
                     $link = 'javascript:void(0)';
                     $status ="disable";
                 }
@@ -625,7 +650,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     $link = base_url('index.php/linetopik/step_materi/').$UUID;
                     $status ="enable";
                 } else {
-                    $icon ='ico-file6';
+                    $icon ='ico-file5';
                     $link = 'javascript:void(0)';
                     $status ="disable";
                 }
@@ -637,7 +662,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                    $link = base_url('index.php/linetopik/create_session_id_latihan/').$latihanID;
                    $status ="enable";
                 } else {
-                    $icon ='ico-pencil';
+                    $icon ='ico-pencil2';
                     $link = 'javascript:void(0)';
                     $status ="disable";
                 }
@@ -706,7 +731,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     $link = base_url('index.php/linetopik/step_video/').$UUID;
                     $status ="enable";
                 } else {
-                    $icon='ico-movie';
+                    $icon='ico-movie2';
                     $link = 'javascript:void(0)';
                     $status ="disable";
                 }
@@ -720,7 +745,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     $link = base_url('index.php/linetopik/step_materi/').$UUID;
                     $status ="enable";
                 } else {
-                   $icon='ico-file6';
+                   $icon='ico-file5';
                    $link = 'javascript:void(0)';
                    $status ="disable";
                 }
@@ -734,7 +759,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                    $link = base_url('index.php/linetopik/create_session_id_latihan/').$latihanID;
                    $status ="enable";
                 } else {
-                  $icon='ico-pencil';
+                  $icon='ico-pencil2';
                  $link = 'javascript:void(0)';
                  $status ="disable";
                 }
@@ -761,16 +786,16 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
         $data['files'] = array(
 
-            APPPATH . 'modules/homepage/views/r-header-login.php',
+            APPPATH . 'modules/homepage/views/m-sidebar.php',
 
-            APPPATH . 'modules/linetopik/views/r-hasil-quiz.php',
+            APPPATH . 'modules/linetopik/views/m-hasil-quiz.php',
 
             // APPPATH . 'modules/homepage/views/v-footer.php',
 
         );
 
 
-        $this->parser->parse('templating/r-index-login', $data);
+        $this->parser->parse('templating/m-index', $data);
     }
 
     //PENCARIAN TOPIK
@@ -800,11 +825,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 $jenis='Video';
                 // pengecekan disable atau enable step
                 if ($step == true || $urutan == '1' ) {
-                    $icon='ico-movie ';
+                    $icon='ico-movie';
                     $link = base_url('index.php/linetopik/step_video/').$UUID;
                     $status ="enable";
                 } else {
-                    $icon='ico-movie';
+                    $icon='ico-movie2';
                     $link = 'javascript:void(0)';
                     $status ="disable";
                 }
@@ -818,7 +843,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     $link = base_url('index.php/linetopik/step_materi/').$UUID;
                     $status ="enable";
                 } else {
-                   $icon='ico-file6';
+                   $icon='ico-file5';
                    $link = 'javascript:void(0)';
                    $status ="disable";
                 }
@@ -832,7 +857,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                    $link = base_url('index.php/linetopik/create_session_id_latihan/').$latihanID;
                    $status ="enable";
                 } else {
-                  $icon='ico-pencil';
+                  $icon='ico-pencil2';
                  $link = 'javascript:void(0)';
                  $status ="disable";
                 }

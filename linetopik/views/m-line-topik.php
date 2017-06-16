@@ -1,5 +1,6 @@
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 <link rel="stylesheet" href="<?= base_url('assets/css/custom-time-line.css') ?>"/>
+<link rel="stylesheet" href="<?= base_url('assets/cssnew/style.css') ?>"/>
 
 <!-- Views -->
 <div class="views">
@@ -26,32 +27,42 @@
             <div class="page page-bg">
                 <div class="page-content">
                 <div class="list-block mt-0 blog-box">
+                  <ul>
+            <div class="container activity p-l-r-20">
+            <div class="row m-l-0" >
+              <div class="col" >
+              <!-- Start Time Line -->
+              <?php 
+                $i=0;
+                foreach ($topik as $key ):           
+                ?>
+                <div class="contact" >
+                 
+                  <div class="dot z-depth-1" style="margin-left: 7px;" id="bulet-<?=$i;?>">
+                  </div>
+                  <div class="step">
+                  <p>
 
-        <ul class="media-list media-list-feed  grid-col-3" >
-                            <?php 
-                            $i=0;
-                            foreach ($topik as $key ):           
-                            ?>
-                                <li  class="media" id="bg-<?=$i;?>">
-                                     <div class="media-object pull-left ">
-                                       <i href=""  class="ico-circle22"></i> 
-                                    </div>
-                                    <div class="media-body" >
-                                        <!-- Untuk menampung staus step disable or enable -->
-                                        <!-- <input type="text" id="status-<?=$i;?>" value="<?=$key["status"];?>" hidden="true"> -->
-                                        <!-- // Untuk menampung staus step disable or enable  -->
-                                        
-                                      <a onclick="line(<?=$key['id']?>)" class="media-heading"  id="font-<?=$i;?>" style="margin-left: 40px;"><?=$key['namaTopik']?></a>
-                                    </div>
-                                 <!-- <hr> -->
-                                </li>
-                            <?php 
-                            $i ++;
-                            endforeach ?>
-                            </ul>
+                  <a onclick="line(<?=$key['id']?>)" class="media-heading"  id="font-<?=$i;?>" style="margin-right: 40px;"><?=$key['namaTopik']?></a>
 
+                  </p>
+                  <!-- Untuk menampung staus step disable or enable -->
+                 
+                  </div>
+                </div>
+              <?php 
+              $i ++;    
+              endforeach ?>
+              
 
+              <!-- menampung nilai panjang array -->
+                <!-- <input type="text" name="t" value="gg" hidden="true"> -->
+              <!-- END Tieme line -->
 
+              </div>
+              </div>
+            </div>
+            </ul>
     </div>
 </div>
 </div>

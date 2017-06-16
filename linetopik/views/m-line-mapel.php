@@ -25,6 +25,7 @@
         <div class="page-content">
             <div class="list-block mt-0 blog-box">
         <div class="content-block mt-5">
+        <ul>
         <?php  
                 $n=0;
                 $oldMpalel='';
@@ -33,19 +34,33 @@
         <?php $mapel=$key['mapel'] ?>
         <?php if ($n==0): ?>
         <?php $n=1; ?>
-
+                <center>
                     <h1><?=$mapel?></h1>
                 <?php elseif($oldMpalel != $mapel) : ?>
                     <h1><?=$mapel?></h1>
                 <?php endif ?>
+                </center>
 
-
-                <blockquote>
-                   <a onclick="learningline(<?=$key['babID']?>)"><?=$key['judulBab']?></a>
+                <li>
+                            <a onclick="learningline(<?=$key['babID']?>)"
+                                class="item-link item-content item-content-icon item-content-icon-slider">
+                                <div class="item-inner blog-list">
+                                    <div class="text">
+                                        <h4 class="title mt-5 mb-0"><?=$key['judulBab']?></h4>
+                                    </div>
+                                </div>
+                            </a>
+                        </li>
+                <!-- <blockquote style="margin-left: 10px;">
+                   <a onclick="learningline(<?=$key['babID']?>)" ><?=$key['judulBab']?></a>
+                   <br><br>
                 </blockquote>  
+ -->
 
         <?php $oldMpalel=$mapel; ?>
         <?php endforeach ?>
+        </ul>
+
         </div>
 
     </div>

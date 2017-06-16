@@ -29,6 +29,27 @@
                 <div class="page-content">
                 <div class="list-block mt-0 blog-box">
                 <ul>
+            <div id="test">
+            <div class="p-t-20" >
+              <article style="margin-left:  10px;">
+                            <div class="post-info" >
+                                <!-- <div class="date-post"><div class="day"><?=$tgl?></div><div class="month"><?=$bulan?></div></div> -->
+                                <div class="post-info-main">
+                                <center>
+                                    <div class="author-post">Nama Materi:' <?= $datMateri['judulMateri']; ?> '</div>
+                                </center>
+                                </div>
+                                <div class="comments-post">
+                                  <h1>Materi : </h1>
+                                </div>
+                            </div>
+                             <p ><?= $datMateri['isiMateri']; ?></p>
+                                
+                            </article>
+              </div>
+          </div>
+            </ul>
+                <ul>
             <div class="container activity p-l-r-20">
             <div class="row m-l-0">
               <div class="col">
@@ -42,18 +63,16 @@
                   </div>
                   <div class="step">
                   <p>
-
                   <?php if ($key['icon'] == 'ico-movie'): ?>
-                  
                     <a onclick="stepvideo('<?=$key['uuid'];?>')" class="media-heading"  id="font-<?=$i;?>" ><?=$key['namaStep']?></a>
-                    <?php elseif ($key['icon'] == 'ico-file6'): ?>
+                  <?php elseif ($key['icon'] == 'ico-file6'): ?>
                     <a onclick="stepmateri('<?=$key['uuid'];?>')" class="media-heading"  id="font-<?=$i;?>" ><?=$key['namaStep']?></a>
                     <?php elseif ($key['icon'] == 'ico-pencil'): ?>
                     <a onclick="steplatihan('<?=$key['latid'];?>')" class="media-heading"  id="font-<?=$i;?>" ><?=$key['namaStep']?></a>
                     <?php else: ?>
                     <a href="<?=$key['link'];?>#test" class="media-heading"  id="font-<?=$i;?>" ><?=$key['namaStep']?></a>
-                    <?php endif ?>
 
+                    <?php endif ?>
                   </p>
                   <!-- Untuk menampung staus step disable or enable -->
                   <input type="hidden" id="status-<?=$i;?>" value="<?=$key["status"];?>" >
@@ -70,7 +89,6 @@
                 <!-- <input type="text" name="t" value="gg" hidden="true"> -->
               <!-- END Tieme line -->
 
-              </div>
               </div>
             </div>
             </ul>   
@@ -162,7 +180,6 @@
     }
     
 </script>
-
 <script type="text/javascript">
     function stepmateri(uuid) {
         // console.log(uuid);
@@ -189,9 +206,6 @@
     
 </script>
 
-
-
-
 <script type="text/javascript">
     function steplatihan(latid) {
         // console.log(latid);
@@ -201,3 +215,7 @@
     }
     
 </script>
+
+
+
+
