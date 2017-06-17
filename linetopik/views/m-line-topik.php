@@ -1,7 +1,6 @@
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-<link rel="stylesheet" href="<?= base_url('assets/css/custom-time-line.css') ?>"/>
 <link rel="stylesheet" href="<?= base_url('assets/cssnew/style.css') ?>"/>
-
+ 
 <!-- Views -->
 <div class="views">
     <div class="view view-main">
@@ -23,11 +22,31 @@
         </div>
 
 
+
+
 <div class="pages navbar-fixed toolbar-fixed">
             <div class="page page-bg">
                 <div class="page-content">
                 <div class="list-block mt-0 blog-box">
                   <ul>
+                  <div class="row">
+                <!-- Pencarian -->
+
+               <div class="content-block mt-0 mb-0">
+                    <div class="forms">
+                            <div class="form-row">
+                                <div class="input-text woocommerce-result-count">
+                                <form method="get" class="search-form" action="<?=base_url()?>index.php/linetopik/cariTopik"  accept-charset="utf-8" enctype="multipart/form-data">
+                                    <input type="search" class="ui-autocomplete-input" placeholder="Search"  name="keycari" title="Search for:" id="caritopik">
+                                    <!-- <button type="submit" class="button" hidden="true" style="float: left;"><i class="fa fa-search"></i></button> -->
+                                </form>
+                                </div>
+                            </div>
+                    </div>
+                </div>
+                  
+                <!-- /Pencarian -->
+              </div>
             <div class="container activity p-l-r-20">
             <div class="row m-l-0" >
               <div class="col" >
@@ -43,7 +62,7 @@
                   <div class="step">
                   <p>
 
-                  <a onclick="line(<?=$key['id']?>)" class="media-heading"  id="font-<?=$i;?>" style="margin-right: 40px;"><?=$key['namaTopik']?></a>
+                  <a onclick="line(<?=$key['id']?>)" id="font-<?=$i;?>" style="margin-right: 100px;"><?=$key['namaTopik']?></a>
 
                   </p>
                   <!-- Untuk menampung staus step disable or enable -->

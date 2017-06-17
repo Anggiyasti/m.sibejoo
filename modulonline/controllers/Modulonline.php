@@ -1,8 +1,4 @@
 <?php
-
-/**
- * 
- */
 class Modulonline extends MX_Controller {
 
     function __construct() {
@@ -64,7 +60,7 @@ class Modulonline extends MX_Controller {
         $data['posts'] = $this->Mmodulonline->getRows($conditions);
         
         //load the view
-        $this->load->view('modulonline/ajax-pagination-data', $data, false);
+        $this->load->view('modulonline/m-ajax-pagination-data', $data, false);
     }
 
     function ajaxPaginationDataSD(){
@@ -107,7 +103,7 @@ class Modulonline extends MX_Controller {
         $data['posts'] = $this->Mmodulonline->getRowssd($conditions);
         
         //load the view
-        $this->load->view('modulonline/ajax-pagination-data', $data, false);
+        $this->load->view('modulonline/m-ajax-pagination-data', $data, false);
     }
 
 
@@ -151,7 +147,7 @@ class Modulonline extends MX_Controller {
         $data['posts'] = $this->Mmodulonline->getRowssmp($conditions);
         
         //load the view
-        $this->load->view('modulonline/ajax-pagination-data', $data, false);
+        $this->load->view('modulonline/m-ajax-pagination-data', $data, false);
     }
 
     function ajaxPaginationDataSMA(){
@@ -194,7 +190,7 @@ class Modulonline extends MX_Controller {
         $data['posts'] = $this->Mmodulonline->getRowssma($conditions);
         
         //load the view
-        $this->load->view('modulonline/ajax-pagination-data', $data, false);
+        $this->load->view('modulonline/m-ajax-pagination-data', $data, false);
     }
 
     function ajaxPaginationDataSMAIPA(){
@@ -237,7 +233,7 @@ class Modulonline extends MX_Controller {
         $data['posts'] = $this->Mmodulonline->getRowssmaipa($conditions);
         
         //load the view
-        $this->load->view('modulonline/ajax-pagination-data', $data, false);
+        $this->load->view('modulonline/m-ajax-pagination-data', $data, false);
     }
 
 
@@ -281,7 +277,7 @@ class Modulonline extends MX_Controller {
         $data['posts'] = $this->Mmodulonline->getRowssmaips($conditions);
         
         //load the view
-        $this->load->view('modulonline/ajax-pagination-data', $data, false);
+        $this->load->view('modulonline/m-ajax-pagination-data', $data, false);
     }
 
 
@@ -370,21 +366,6 @@ $output = array(
 echo json_encode( $output );
 } 
 
-    #Start Function untuk form upload bank soal#\
-
-
-
-    // pengecekan soal jika ada tabel
-public function cek_soal_tabel($soal)
-{
-   if (strpos($soal, '<table') !== false) {
-    return true;
-}else{
-    return false;
-}
-
-
-}
 
 public function formmodul() {
 
@@ -596,13 +577,12 @@ public function allmodul() {
         );
 
     $data['files'] = array( 
-        APPPATH.'modules/homepage/views/r-header-login.php',
-        APPPATH.'modules/modulonline/views/v-edudrive.php',
-        APPPATH.'modules/testimoni/views/r-footer.php',
+        APPPATH.'modules/homepage/views/m-sidebar.php',
+        APPPATH.'modules/modulonline/views/m-edudrive.php',
         );
 
-    $data['modul'] = $this->Mmodulonline->get_all_moduls();
     $data['downloads'] = $this->Mmodulonline->get_modulteratas();
+    $data['member'] = $this->session->userdata('member');
 
     //total rows count
     $totalRec = count($this->Mmodulonline->getRows());
@@ -617,24 +597,23 @@ public function allmodul() {
 
     //get the posts data
     $data['posts'] = $this->Mmodulonline->getRows(array('limit'=>$this->perPage));
-
-    $this->parser->parse( 'templating/r-index', $data );
+    $this->parser->parse( 'templating/m-index-edudrive', $data );
 
 }
 
 public function modulsd() {
     $data = array(
-        'judul_halaman' => 'Sibejoo - Edu Drive',
+        'judul_halaman' => 'Sibejoo - Edu Drive Sekolah Dasar',
         'judul_header' =>'Welcome',
         'judul_header2' =>'Modul Belajar'
         );
 
     $data['files'] = array( 
-        APPPATH.'modules/homepage/views/r-header-login.php',
-        APPPATH.'modules/modulonline/views/v-edusd.php',
-        APPPATH.'modules/testimoni/views/r-footer.php',
+        APPPATH.'modules/homepage/views/m-sidebar.php',
+        APPPATH.'modules/modulonline/views/m-edudrive.php',
+        // APPPATH.'modules/testimoni/views/r-footer.php',
         );
-
+    $data['member'] = $this->session->userdata('member');
     $data['modul'] = $this->Mmodulonline->modulsd();
     $data['downloads'] = $this->Mmodulonline->get_modulteratas();
 
@@ -651,7 +630,7 @@ public function modulsd() {
     
     //get the posts data
     $data['posts'] = $this->Mmodulonline->getRowssd(array('limit'=>$this->perPage));
-    $this->parser->parse( 'templating/r-index', $data );
+    $this->parser->parse( 'templating/m-index', $data );
 }
 
 public function modulsmp() {
@@ -662,12 +641,13 @@ public function modulsmp() {
         );
 
     $data['files'] = array( 
-        APPPATH.'modules/homepage/views/r-header-login.php',
-        APPPATH.'modules/modulonline/views/v-edusmp.php',
-        APPPATH.'modules/testimoni/views/r-footer.php',
+        APPPATH.'modules/homepage/views/m-sidebar.php',
+        APPPATH.'modules/modulonline/views/m-edudrive.php',
+        // APPPATH.'modules/testimoni/views/r-footer.php',
         );
 
     $data['modul'] = $this->Mmodulonline->modulsmp();
+    $data['member'] = $this->session->userdata('member');
     $data['downloads'] = $this->Mmodulonline->get_modulteratas();
     //total rows count
     $totalRec = count($this->Mmodulonline->getRowssmp());
@@ -680,7 +660,7 @@ public function modulsmp() {
     $this->ajax_pagination->initialize($config);
     //get the posts data
     $data['posts'] = $this->Mmodulonline->getRowssmp(array('limit'=>$this->perPage));
-    $this->parser->parse( 'templating/r-index', $data );
+    $this->parser->parse( 'templating/m-index', $data );
 }
 
 public function modulsma() {
@@ -691,12 +671,14 @@ public function modulsma() {
         );
 
     $data['files'] = array( 
-        APPPATH.'modules/homepage/views/r-header-login.php',
-        APPPATH.'modules/modulonline/views/v-edusma.php',
-        APPPATH.'modules/testimoni/views/r-footer.php',
+        APPPATH.'modules/homepage/views/m-sidebar.php',
+        APPPATH.'modules/modulonline/views/m-edudrive.php',
+        // APPPATH.'modules/testimoni/views/r-footer.php',
         );
     $data['modul'] = $this->Mmodulonline->modulsma();
     $data['downloads'] = $this->Mmodulonline->get_modulteratas();
+    $data['member'] = $this->session->userdata('member');
+
     //total rows count
     $totalRec = count($this->Mmodulonline->getRowssma());
     //pagination configuration
@@ -708,7 +690,7 @@ public function modulsma() {
     $this->ajax_pagination->initialize($config);
         //get the posts data
     $data['posts'] = $this->Mmodulonline->getRowssma(array('limit'=>$this->perPage));
-    $this->parser->parse( 'templating/r-index', $data );
+    $this->parser->parse( 'templating/m-index', $data );
 }
 
 public function modulsmaipa() {
@@ -719,13 +701,15 @@ public function modulsmaipa() {
         );
 
     $data['files'] = array( 
-        APPPATH.'modules/homepage/views/r-header-login.php',
-        APPPATH.'modules/modulonline/views/v-edusmaipa.php',
-        APPPATH.'modules/testimoni/views/r-footer.php',
+        APPPATH.'modules/homepage/views/m-sidebar.php',
+        APPPATH.'modules/modulonline/views/m-edudrive.php',
+        // APPPATH.'modules/testimoni/views/r-footer.php',
         );
 
     $data['modul'] = $this->Mmodulonline->modulsmaipa();
     $data['downloads'] = $this->Mmodulonline->get_modulteratas();
+    $data['member'] = $this->session->userdata('member');
+
 
     //total rows count
     $totalRec = count($this->Mmodulonline->getRowssmaipa());
@@ -741,7 +725,7 @@ public function modulsmaipa() {
         //get the posts data
     $data['posts'] = $this->Mmodulonline->getRowssmaipa(array('limit'=>$this->perPage));
 
-    $this->parser->parse( 'templating/r-index', $data );
+    $this->parser->parse( 'templating/m-index', $data );
 
 }
 
@@ -754,12 +738,14 @@ public function modulsmaips() {
 
     $data['files'] = array( 
         APPPATH.'modules/homepage/views/r-header-login.php',
-        APPPATH.'modules/modulonline/views/v-edusmaips.php',
+        APPPATH.'modules/modulonline/views/v-edudrive.php',
         APPPATH.'modules/testimoni/views/r-footer.php',
         );
 
     $data['modul'] = $this->Mmodulonline->modulsmaips();
     $data['downloads'] = $this->Mmodulonline->get_modulteratas();
+    $data['member'] = $this->session->userdata('member');
+    
 
         // $data = array();
 
@@ -800,6 +786,18 @@ public function datKomen()
   return $listKomen;
 }
 
+
+function tampungModul()
+{
+    $id = $this->input->post('url_file');
+            $this->session->set_userdata('modul', $id);
+            echo json_encode($id);
+        
+}
+
+function tampilModul($url){
+   return base_url().'assets/modul'.$url;
+}
 }
 
 ?>

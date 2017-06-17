@@ -69,6 +69,16 @@
                 <p id="tes" hidden="true"><?=$i;?></p>
                 <!-- <input type="text" name="t" value="gg" hidden="true"> -->
               <!-- END Tieme line -->
+              <?php if ($datline!= array()): ?>
+                <?php else: ?>
+                                <div class="container-404">
+                                <div class="font-200 line-height-1em mt-0 mb-0 text-theme-color-2 text-center">U<span>P</span>S!</div>
+                                    <h2 class="mt-0 text-center" ><span>Maaf:(</span>
+                                    </h2>
+                                    <h2 class="mt-0 text-center" >Step Line Belum Tersedia.</h2>
+                                   
+                                </div>
+                            <?php endif ?>
 
               </div>
               </div>

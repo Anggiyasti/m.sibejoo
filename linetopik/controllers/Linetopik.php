@@ -879,15 +879,15 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         }
         $data['files'] = array(
 
-            APPPATH . 'modules/homepage/views/r-header-login.php',
+            APPPATH . 'modules/homepage/views/m-sidebar.php',
 
-            APPPATH . 'modules/linetopik/views/r-line-topik.php',
+            APPPATH . 'modules/linetopik/views/m-line-topik.php',
 
             // APPPATH . 'modules/homepage/views/v-footer.php',
 
         );
 
-        $this->parser->parse('templating/r-index-login', $data);
+        $this->parser->parse('templating/m-index', $data);
         // END step line
     }
 

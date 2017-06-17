@@ -284,3 +284,27 @@
         window.location.href = "http://google.com";
     }
 </script>
+
+<script type="text/javascript">
+    function lineMapel(id_tingkat) {
+        url_ajax = base_url+"linetopik/ambiltingkat";
+
+        var global_properties = {
+          id_tingkat: id_tingkat
+        };
+
+        $.ajax({
+          type: "POST",
+          dataType: "JSON",
+          url: url_ajax,
+          data: global_properties,
+          success: function(data){
+            window.location.href = base_url + "linetopik/lineMapel";  
+          },error:function(data){
+            sweetAlert("Oops...", "wah, gagal menghubungkan!", "error");
+          }
+
+        });
+    }
+    
+</script>

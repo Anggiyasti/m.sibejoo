@@ -29,6 +29,22 @@
                 <div class="page-content">
                 <div class="list-block mt-0 blog-box">
                 <ul>
+                <div class="row">
+                <!-- Pencarian -->
+               <div class="content-block mt-0 mb-0">
+                    <div class="forms">
+                            <div class="form-row">
+                                <div class="input-text woocommerce-result-count">
+                                <form method="get" class="search-form" action="<?=base_url()?>index.php/linetopik/cariTopik"  accept-charset="utf-8" enctype="multipart/form-data">
+                                    <input type="search" class="ui-autocomplete-input" placeholder="Search"  name="keycari" title="Search for:" id="caritopik">
+                                    <!-- <button type="submit" class="button" hidden="true" style="float: left;"><i class="fa fa-search"></i></button> -->
+                                </form>
+                                </div>
+                            </div>
+                    </div>
+                </div>
+                <!-- /Pencarian -->
+              </div>
             <div id="test">
             <div class="p-t-20" >
               <article style="margin-left:  10px;">
