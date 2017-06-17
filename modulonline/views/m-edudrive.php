@@ -164,20 +164,17 @@ div.pagination span.disabled {
                         <div id="postList">
                         <div class="products">
                             <?php if(!empty($posts)): foreach($posts as $post): ?>
-                            <?php $status_akses = ($post['statusAksesFile']==1 && $member==0) ? 'disabled' : 'enabled' ; ?>
-                            <!-- 'href="'.base_url("assets/modul/".$post['url_file']).'"' -->
-
+                            <?php $status_akses = ($post['statusAksesFile']==1 && $member==0) ? 'disabled1' : 'enabled' ; ?>
                             <?php $url_download =  'href="'.base_url("assets/modul_online/".$post['url_file']).'"' ?>
-                            <?php $url = ($post['statusAksesFile']==1 && $member==0) ? 'disabled' : $url_download; ?>
+                            <?php $url = ($post['statusAksesFile']==1 && $member==0) ? 'disabled1' : $url_download; ?>
                             <?php $onclick =  ($post['statusAksesFile']==1 && $member==0) ? 'onclick="go_token()"' : 'onclick="Approved('.$post['id'].')"';  ?>
                             <div class="content-block mt-0 mb-0">
                                 <blockquote>
                                     <?= $post['judul']?><br>
                                     <?= $post['deskripsi']?><br>
-                                    
                                 </blockquote>
                                 <!-- <a onclick="lihat_detail(<?=$tryout_item['id_tryout'];?>)" class="button button-small js-form-submit button-fill button-primary">Lihat Paket Soal</a> -->
-                                <a title="Download" <?=$status_akses?> <?=$url ?> class="button button-small js-form-submit button-fill button-primary" target="_blank" style="padding:8" <?=$onclick ?>> <i class="fa fa-download <?=$status_akses ?>"></i></a>
+                                <a title="Download" <?=$status_akses?> <?=$url ?> class="button button-small js-form-submit button-fill button-primary <?=$status_akses?>" target="_blank" style="padding:8" <?=$onclick ?> > <i class="fa fa-download <?=$status_akses ?>"></i></a>
                             </div>
 
                             <?php endforeach; else: ?>
@@ -201,6 +198,7 @@ div.pagination span.disabled {
 
     </div>
 </div>
+
 <script>
  function Approved(butId){
   // console.log(1);
@@ -217,7 +215,7 @@ div.pagination span.disabled {
 }
 
 function go_token(){
-  swal('Oops','Maaf anda harus menjadi member untuk mengunduh file ini','warning');
+  sweetAlert('Oops','Maaf anda harus menjadi member untuk mengunduh file ini','warning');
 }
 </script>
 
@@ -241,8 +239,5 @@ function go_token(){
 }
 
 
-function linkmodul(latid) {
-        // console.log(latid);
-        window.location= base_url+"assets/modul_online/"+latid; 
-    }
+
 </script>                                  

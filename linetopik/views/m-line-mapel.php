@@ -25,40 +25,26 @@
         <div class="page-content">
             <div class="list-block mt-0 blog-box">
         <div class="content-block mt-5">
-        <ul>
-        <?php  
-                $n=0;
-                $oldMpalel='';
-        ?>
-        <?php foreach ($datMapel as $key): ?>
-        <?php $mapel=$key['mapel'] ?>
-        <?php if ($n==0): ?>
-        <?php $n=1; ?>
-                <center>
-                    <h1><?=$mapel?></h1>
-                <?php elseif($oldMpalel != $mapel) : ?>
-                    <h1><?=$mapel?></h1>
-                <?php endif ?>
-                </center>
+        <ul style="text-align: center;" >
+        <?php  $n=0;$oldMpalel='';?>
+            <?php foreach ($datMapel as $key): ?>
+              <?php $member = $this->session->userdata('member') ?>
+              <?php $status_akses = ($key['statusAksesLearningLine']==0 && $member==0) ? 'disabled1' : 'enabled' ; ?>
+              <?php $mapel=$key['mapel'] ?>
 
-                <li>
-                            <a onclick="learningline(<?=$key['babID']?>)"
-                                class="item-link item-content item-content-icon item-content-icon-slider">
-                                <div class="item-inner blog-list">
-                                    <div class="text">
-                                        <h4 class="title mt-5 mb-0"><?=$key['judulBab']?></h4>
-                                    </div>
-                                </div>
-                            </a>
-                        </li>
-                <!-- <blockquote style="margin-left: 10px;">
-                   <a onclick="learningline(<?=$key['babID']?>)" ><?=$key['judulBab']?></a>
-                   <br><br>
-                </blockquote>  
- -->
-
-        <?php $oldMpalel=$mapel; ?>
-        <?php endforeach ?>
+              <?php if ($n==0): ?>
+                <?php $n=1; ?>
+                <h5 class="widget-title line-bottom"><?=$mapel?></h5>
+              <?php elseif($oldMpalel != $mapel) : ?>
+                <h5 class="widget-title line-bottom"><?=$mapel?></h5>
+              <?php endif ?>
+              <div class="categories">
+                <!-- <ul class="list list-border angle-double-right"> -->
+                  <li><a id="bab_id" style="margin-right: : 10px;" onclick="getlearning(<?=$key['babID']?>)" class="<?=$status_akses ?> item-content item-content-icon item-content-icon-slider" ><?=$key['judulBab']?></a></li>
+                <!-- </ul> -->
+              </div>
+              <?php $oldMpalel=$mapel; ?>
+            <?php endforeach ?>
         </ul>
 
         </div>
@@ -94,4 +80,33 @@
     }
     
 </script>
+<script type="text/javascript">
+      function getlearning(judulBab) {
+        status_learning_member = $('.categories li a').hasClass("disabled1");
+        
+        if(status_learning_member) {
+          sweetAlert("Sayang sekali", "Anda harus menjadi member terlebih dahulu untuk mengakses bab tersebut", "warning")
+          window.open(base_url+"donasi", '_blank')
+        } else {
+          url_ajax = base_url+"linetopik/tampungid_bab";
+
+          var global_properties = {
+            judulBab: judulBab
+          };
+
+          $.ajax({
+            type: "POST",
+            dataType: "JSON",
+            url: url_ajax,
+            data: global_properties,
+            success: function(data){
+              window.location.href = base_url + "linetopik/learningline";  
+            },error:function(data){
+              sweetAlert("Oops...", "wah, gagal menghubungkan!", "error");
+            }
+
+          });
+        }
+      }
+    </script>
 

@@ -13,7 +13,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         $this->load->model('tesonline/mtesonline');
         $this->load->library('sessionchecker');
         $this->sessionchecker->checkloggedin();
-        $this->sessionchecker->cek_token();
         
  	}
  	public function index()
@@ -45,14 +44,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         
     }
 
-     // tampung id bab
-    public function tampungid_bab()
-    {   
-            $id = $this->input->post('id_bab');
-            $this->session->set_userdata('id_bab', $id);
-            echo json_encode($id);
-        
-    }
+    // tampung id tingkar
+ public function tampungid_bab()
+ {   
+    $id = $this->input->post('judulBab');
+    $this->session->set_userdata('id_bab', $id);
+    echo json_encode($id);
+
+}
 
      // tampung id topik
     public function tampungid_topik()

@@ -18,7 +18,7 @@ class Tryout extends MX_Controller {
         if ($this->session->userdata('HAKAKSES')=='ortu') {
             # langusung masuk
         }else{
-        $this->sessionchecker->cek_token();
+        // $this->sessionchecker->cek_token();
         }
 
     }

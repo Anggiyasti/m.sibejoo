@@ -9,7 +9,7 @@
  	public function get_mapel($tingkatID)
  	{
         $this->db->distinct('tp.keterangan');
- 		$this->db->select('tp.keterangan as mapel, bab.judulBab, bab.id as babID');
+ 		$this->db->select('tp.keterangan as mapel, bab.judulBab, bab.id as babID,statusAksesLearningLine');
  		$this->db->from('tb_tingkat-pelajaran tp');
  		$this->db->join('tb_bab bab','bab.tingkatPelajaranID = tp.id');
         $this->db->join('tb_line_topik topik','topik.babID=bab.id');
