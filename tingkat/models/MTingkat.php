@@ -111,7 +111,7 @@ class MTingkat extends CI_Model {
 	// get bab by tingkat
 	public function getbabbytingkatid($tingkatid) {
 
-		$this->db->select('namaMataPelajaran,tingkat.id AS tingkatID, mapel.id AS mapelID,tingpel.id as tingpelID, bab.judulBab,bab.id')->from( 'tb_tingkat tingkat' );
+		$this->db->select('namaMataPelajaran,tingkat.id AS tingkatID, mapel.id AS mapelID,tingpel.id as tingpelID, bab.judulBab,bab.id, bab.statusAksesLatihan')->from( 'tb_tingkat tingkat' );
 
 	    $this->db->join( 'tb_tingkat-pelajaran tingpel', 'tingpel.tingkatID=tingkat.id' );
 

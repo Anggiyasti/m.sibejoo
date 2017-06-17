@@ -40,9 +40,20 @@
                                     <div class="item-input">
                                         <select name="bab" id="babSelect">
                                             <option value=0>-Bab Pelajaran-</option>
-                                            <?php foreach ($bab as $babitem) : ?>
+                                            <!-- cek dulu usernya member atau bukan -->
+                                            <?php if ($this->session->userdata('member')==1): ?>
+                                              <?php foreach ($bab as $babitem) : ?> 
                                                 <option value="<?=$babitem['id']?>"><?=$babitem['judulBab']?></option>
-                                            <?php endforeach ?>
+                                              <?php endforeach ?>
+                                            <?php else : ?>
+                                              <?php foreach ($bab as $babitem) : 
+                                                if ($babitem['statusAksesLatihan'] == 1) : ?>
+                                                  <option value="<?=$babitem['id']?>" onclick="go_token()" disabled><?=$babitem['judulBab']?> (Member)</option>
+                                                <?php else : ?>
+                                                  <option value="<?=$babitem['id']?>"><?=$babitem['judulBab']?></option>
+                                                <?php endif ?>
+                                              <?php endforeach ?>
+                                            <?php endif ?>
                                         </select>
                                     </div>
                                 </div>
@@ -184,4 +195,23 @@
                 });
           }
         }
+
+        function go_token(){
+          swal('Maaf, anda harus menjadi member');
+        }
+
+        $(function(){
+          var options_sel_idx = 0;
+
+          $("#babSelect").on("change", this, function(event) {
+            console.log('hello');
+            if($(this.options[this.selectedIndex]).hasClass("disabled")) {
+              go_token();
+              window.open(base_url+"donasi", '_blank')
+              this.selectedIndex = options_sel_idx;
+            } else {
+              options_sel_idx = this.selectedIndex;
+            }
+          });
+        });
 </script>

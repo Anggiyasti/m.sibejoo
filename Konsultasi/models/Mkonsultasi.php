@@ -1066,6 +1066,50 @@ class Mkonsultasi extends CI_Model
 				return $query->result_array()[0];
 			}
 
+
+			//ambil semua pertnyaan
+	function coba($perpage,$page,$key=""){
+		$this->db->select('`pertanyaan`.`id` AS `pertanyaanID`, `photo`, 
+			`namaDepan`, `namaBelakang`, `judulPertanyaan`, 
+			`isiPertanyaan`, `pertanyaan`.`date_created`, 
+			`bab`.`judulBab`,mp.namaMataPelajaran,
+			(SELECT COUNT(id) FROM `tb_k_jawab`  WHERE pertanyaanID = pertanyaan.id) AS jumlah, pertanyaan.mentorID,
+			(SELECT CONCAT(`namaDepan`," ",`namaBelakang`) from tb_guru where id = pertanyaan.mentorID) as namaGuru');
+		$this->db->join('`tb_bab` `bab`','`pertanyaan`.`babID` = `bab`.`id`');
+		$this->db->join('`tb_tingkat-pelajaran` `tp`','`bab`.`tingkatPelajaranID` = `tp`.`id`');
+		$this->db->join('`tb_siswa` `siswa`','`pertanyaan`.`siswaID` = `siswa`.`id`');
+		$this->db->join('tb_mata-pelajaran mp', 'mp.id = tp.mataPelajaranID');
+
+		$this->db->order_by('`pertanyaan`.`id`','desc');
+		
+		if ($key==!"") {
+			$this->db->where("judulPertanyaan LIKE '%$key%' OR
+				bab.judulBab LIKE '%$key%'
+				")->order_by('`pertanyaan.date_created`','asc');
 		}
+		$query = $this->db->get('`tb_k_pertanyaan` `pertanyaan`',$perpage,$page);
+
+		return $query->result_array();
+
+	}
+
+	// ambil jumlah semua pertanyaan
+	function getRows($key=""){
+		$this->db->select('`pertanyaan`.`id`,judulPertanyaan,bab.judulBab');
+		$this->db->join('`tb_bab` `bab`','`pertanyaan`.`babID` = `bab`.`id`');
+		$this->db->join('`tb_tingkat-pelajaran` `tp`','`bab`.`tingkatPelajaranID` = `tp`.`id`');
+		$this->db->join('`tb_siswa` `siswa`','`pertanyaan`.`siswaID` = `siswa`.`id`');
+		// $this->db->where('`siswa`.`id`', $id_siswa )->order_by('`pertanyaan`.`id`','desc');
+		if ($key==!"") {
+			$this->db->where("judulPertanyaan LIKE '%$key%' OR
+				bab.judulBab LIKE '%$key%'
+				")->order_by('`pertanyaan.date_created`','asc');
+		}
+		$query = $this->db->get('`tb_k_pertanyaan` `pertanyaan`');
+		//return fetched data
+        return ($query->num_rows() > 0)?$query->result_array():FALSE;			
+	}
+
+}
 
 		?>

@@ -32,6 +32,8 @@
     <link rel="stylesheet" href="<?=base_url('assets/mobile/bower_components/swipebox/src/css/swipebox.css')?>">
 
     <link rel="stylesheet" href="<?=base_url('assets/mobile/css/app.css')?>">
+    <script src="<?= base_url('assets/sal/sweetalert-dev.js');?>"></script>
+    <link rel="stylesheet" href="<?= base_url('assets/sal/sweetalert.css');?>">
     <!--<link rel="stylesheet" href="" id="theme-style">-->
 </head>
 <body>

@@ -50,11 +50,11 @@ public function validasiLogin() {
         //variabelSession
         $sess_array = array();
         foreach ($result as $row) {
-         $idPengguna = $row->id;
-         $hakAkses = $row->hakAkses;
+           $idPengguna = $row->id;
+           $hakAkses = $row->hakAkses;
             //membuat session
-         $verifikasiCode = md5($row->regTime);
-         $sess_array = array(
+           $verifikasiCode = md5($row->regTime);
+           $sess_array = array(
             'id' => $idPengguna,
             'USERNAME' => $this->db->escape_str($row->namaPengguna),
             'HAKAKSES' => $row->hakAkses,
@@ -62,12 +62,14 @@ public function validasiLogin() {
             'eMail' => $row->eMail,
             'verifikasiCode' => $verifikasiCode,
             'loggedin' => TRUE,
-            'member' => 1
             );
-         $this->session->set_userdata($sess_array);
-         if ($hakAkses == 'admin') {
+           $this->session->set_userdata($sess_array);
+           if ($hakAkses == 'admin') {
+            $this->session->set_userdata('member', 1);
+
             redirect(base_url('index.php/admin'));
         } elseif ($hakAkses == 'guru') {
+            $this->session->set_userdata('member', 1);
             $guru = $this->Mlogin->cekGuru($this->session->userdata['id']);
             foreach ($guru as $value) {
                 $namaGuru = $value->namaDepan .' '.$value->namaBelakang;
@@ -78,26 +80,32 @@ public function validasiLogin() {
         } elseif ($hakAkses == 'siswa') {
             $tampSiswa=$this->Mlogin->get_namaSiswa($idPengguna);
             $namaSiswa = $tampSiswa['namaDepan'] . ' '  . $tampSiswa['namaBelakang']  ;
-                     //set session nama Siswa
+            //set session nama Siswa
             $this->session->set_userdata('NAMASISWA', $namaSiswa);
-            $this->cek_token();
+            $token = $this->Mlogin->get_token();
+
+            if ($token) {
+                $this->session->set_userdata('member', 1);
+            }else{
+                $this->session->set_userdata('member', 0);               
+            }
+
             redirect(site_url('welcome'));
 
         } elseif ($hakAkses == 'ortu') {
-                //untuk mengambil id orang tua berdasarkan id_pengguna
+            //untuk mengambil id orang tua berdasarkan id_pengguna
             $tampOrtu=$this->Mlogin->get_ortu($idPengguna)[id];
-                //untuk mengambil nama pengguna anaknya
+            //untuk mengambil nama pengguna anaknya
             $tampOrtu2=$this->Mlogin->get_ortu2($tampOrtu);
 
             $namaOrtu = $tampOrtu2['namaPengguna'];
-                //set session nama ortu diganti dengan nama pengguna siswa
+            //set session nama ortu diganti dengan nama pengguna siswa
             $this->session->set_userdata('NAMAORTU', $namaOrtu);
-            $this->cek_token();
             redirect(site_url('welcome'));
 
         }elseif ($hakAkses == 'admin_cabang') {
-           redirect(site_url('admincabang'));
-       } else {
+         redirect(site_url('admincabang'));
+     } else {
         echo 'tidak ada hak akses';
     }
 }

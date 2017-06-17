@@ -30,16 +30,35 @@
                                 </h4>
                                 <small>Author: {nama_penulis} at 23.02.2015</small>
                             </div>
-                            <div class="text">
-                                <h4 class="title mt-5 mb-0">
+                             <h4 class="title mt-5 mb-0">
                                     <a href="post1.html">Comments</a><hr>
                                 </h4>
-                                <?php foreach ($comments as $comment): ?>
-                                    <small><?=$comment->namaPengguna ?> says:</small>
-                                    <p><?=$comment->isiKomen ?></p> <hr>
-                                <?php endforeach ?>
-                                <h3 style="color: white">Leave a Comment</h3>
+                            <?php foreach ($comments as $comment): ?>
+                            <header class="small">
+                                <?=$comment->namaPengguna ?> says:
+                            </header>
+                            <div class="list-block media-list mt-0 mb-0 comments-list">
+                                <a href="#" class="item-link item-content">
+                                    <div class="item-media">
+                                        <img src="http://lorempixel.com/80/80/people" alt=""/>
+                                    </div>
+                                    <div class="item-inner">
+                                        <div class="text">
+                                            <?=$comment->isiKomen ?>
+                                        </div>
+                                        <div class="row mt-5">
+                                            <div class="col-50 product">
+                                                <?=$comment->date_created ?>
+                                            </div>
+                                            <div class="col-50 author text-right">
+                                                <?=$comment->namaPengguna ?>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </a>
                             </div>
+                            <?php endforeach ?>
+                            <h3 style="color: white">Leave a Comment</h3>
                             <div class="text">
                                 <form class="login-form" action ="" id="formkomen" method = "post" style="color: red" >
                                     <div id="info">

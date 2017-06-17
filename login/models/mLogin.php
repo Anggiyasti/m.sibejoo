@@ -229,8 +229,22 @@ class Mlogin extends CI_Model {
        
     }
 
-    
+     public function get_token(){
+        $id_pengguna = $this->session->userdata('id');
+        $this->db->select('siswa.id');
+        $this->db->from('(SELECT id FROM tb_pengguna WHERE id='.$id_pengguna.') as siswa');
+        $this->db->join('tb_siswa s ',' s.penggunaID = siswa.id');
+        $this->db->join('tb_token t ',' t.siswaID = s.id');
+        $query = $this->db->get();
 
+        if ($query->num_rows() == 1) {
+            return  true; //if data is true
+        } else {
+            return false; //if data is wrong
+        }
+
+
+    }
 
 
 }
