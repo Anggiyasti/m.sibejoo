@@ -27,7 +27,6 @@ class Konsultasi extends MX_Controller{
       // $this->session[]
       $this->session->set_userdata('NAMASISWA', $this->session->userdata('NAMAGURU'));
     }else{
-      $this->sessionchecker->cek_token();
 
     }
   }
@@ -347,13 +346,12 @@ public function editpost($id){
       );
 
     $data['files'] = array(
-      APPPATH.'modules/homepage/views/r-header-login.php',
-      APPPATH.'modules/konsultasi/views/r-edit-jawaban.php',
-      APPPATH.'modules/templating/views/r-footer.php'
+      APPPATH.'modules/homepage/views/m-sidebar.php',
+      APPPATH.'modules/konsultasi/views/m-edit-jawaban.php'
       );
     $data['edit'] = $data_edit['0'];
 
-    $this->parser->parse( 'templating/r-index', $data );
+    $this->parser->parse( 'templating/m-index', $data );
   }else{
     echo "Gagal!";
   }
@@ -581,7 +579,7 @@ public function do_upload(){
     // get
     $this->load->library('upload', $config);
   // echo "<a data-nama='".$new_name."' class='insert' onclick='insert()'>Sisipkan</a>";
-    echo "<a data-nama='".$new_name."' class='insert' onclick='insert()' style='border: 2px solid #18bb7c; padding: 2px;display: inline' title='Sisipkan' disabled><i class='fa fa-cloud-upload'></i></a>";
+    echo "<a data-nama='".$new_name."' class='insert' onclick='insert()' style='border: 2px solid #18bb7c; padding: 2px;display: inline' title='Sisipkan'><i class='fa fa-cloud-upload'></i></a>";
 
 
 

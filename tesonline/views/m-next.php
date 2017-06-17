@@ -1,5 +1,10 @@
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-
+<style type="text/css">
+  .dis {
+    color: red;
+    opacity: 0.5;
+  }
+</style>
 <!-- Views -->
 <div class="views">
     <div class="view view-main">
@@ -48,7 +53,7 @@
                                             <?php else : ?>
                                               <?php foreach ($bab as $babitem) : 
                                                 if ($babitem['statusAksesLatihan'] == 1) : ?>
-                                                  <option value="<?=$babitem['id']?>" onclick="go_token()" disabled><?=$babitem['judulBab']?> (Member)</option>
+                                                  <option value="<?=$babitem['id']?>" onclick="go_token()" style="color: gray" class="disabled"><?=$babitem['judulBab']?> (Member)</option>
                                                 <?php else : ?>
                                                   <option value="<?=$babitem['id']?>"><?=$babitem['judulBab']?></option>
                                                 <?php endif ?>
@@ -167,7 +172,6 @@
 
             if (data.subab==0) {
               url = "<?php echo base_url() ?>index.php/latihan/tambah_latihan_ajax_bab";
-              console.log(data);
             }else{
               url = "<?php echo base_url() ?>index.php/latihan/tambah_latihan_ajax";
             }
@@ -197,6 +201,7 @@
         }
 
         function go_token(){
+          console.log('masuk');
           swal('Maaf, anda harus menjadi member');
         }
 
@@ -204,7 +209,6 @@
           var options_sel_idx = 0;
 
           $("#babSelect").on("change", this, function(event) {
-            console.log('hello');
             if($(this.options[this.selectedIndex]).hasClass("disabled")) {
               go_token();
               window.open(base_url+"donasi", '_blank')

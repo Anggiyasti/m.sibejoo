@@ -56,12 +56,11 @@
                                     Upload Gambar : 
                                     <input type="file" class="cws-button bt-color-3 alt smalls post" name="file" style="display: inline">
 
-                                    <a onclick="submit_upload()" style="border: 2px solid #18bb7c; padding: 2px;display: inline" title="Upload"><i class="fa fa-cloud-download"></i></a> 
+                                    <a onclick="submit_upload()" style="border: 2px solid #18bb7c; padding: 2px;display: inline" title="Upload" id="submit-button"><i class="fa fa-cloud-download"></i></a> 
                                     <div id="output" style="display: inline">
-                                        <!-- <a style="border: 2px solid grey; padding: 2px;display: inline" title="Sisipkan" id="sisipkan" disabled><i class="fa fa-cloud-upload"></i></a>  -->
+                                        <a style="border: 2px solid grey; padding: 2px;display: inline" title="Sisipkan" disabled><i class="fa fa-cloud-upload"></i></a> 
                                     </div>
-                                    <input type="submit" class="fa fa-cloud-upload submit-upload" style="margin-top: 3px;display: none" value="Upload">
-                                     <a style="border: 2px solid grey; padding: 2px;display: inline" title="Sisipkan" onclick="insert()"><i class="fa fa-cloud-upload"></i></a>              
+                                    <input type="submit" class="fa fa-cloud-upload submit-upload" style="margin-top: 3px;display: none" value="Upload">            
                                     </a>
                                 </form>
                                 <br>
@@ -105,8 +104,7 @@
 
     function sukses()  { 
         j('#form-upload').resetForm();
-        jQuery('#sisipkan').removeAttr('disabled');
-
+        jQuery('#submit-button').attr('disabled', ''); 
     } 
 
     function insert(){
