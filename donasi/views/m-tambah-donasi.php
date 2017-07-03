@@ -1,5 +1,3 @@
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-
 <!-- Views -->
 <div class="views">
     <div class="view view-main">
@@ -11,7 +9,7 @@
                         <span class="kkicon icon-menu"></span>
                     </a>
                 </div>
-                <div class="center sliding">{judul_header}</div>
+                <div class="center sliding">Donasi</div>
                 <div class="right">
                     <a href="#" class="link icon-only open-panel" data-panel="right">
                         <span class="kkicon icon-user"></span>
@@ -20,36 +18,161 @@
             </div>
         </div>
 
+        <div class="pages navbar-fixed toolbar-fixed">
+            <div class="page page-bg">
+                <div class="page-content">
 
-    <div class="pages">
-        <div class="page no-toolbar" data-page="contact">
-            <div class="page-content">
-
-                <br><br>
-                <div class="content-block mt-0 mb-0">
-                    <div class="forms">
-                        <div class="item-input">
-                                        <form class="woocommerce-ordering" method="get">
-                            <select id="sortBy" onchange="searchFilter()" class="orderby">
-                                <option value="">Urutkan</option>
-                                <option value="asc">Judul A-Z</option>
-                                <option value="desc">Judul Z-A</option>
-                                <option value="date_created">Terbaru</option>
-                            </select>
-                        </form>
+                    <h2 class="text-center" style="color: white">Daftar Donasi</h2>
+                    <div class="list-block">
+                    <ul>
+                        <!-- Text inputs -->
+                        <form id="donasi_form" name="donasi_form"  action="action="<?=base_url('konsultasi/do_upload') ?>" enctype="multipart/form-data" disabled>
+                        <!-- Select -->
+                        <li>
+                            <div class="item-content">
+                                <div class="item-inner">
+                                    <div class="item-input">
+                                        <select class="form-control" name="donasi" id="donasi">
+                                        <option>-Pilih Jenis Donasi-</option>
+                                        </select>
                                     </div>
+
+
                                     
-                    </div>
+                                </div>
+
+                            </div>
+                        </li>
+                        <a onclick="simpan()" class="button button-small js-form-submit button-fill button-primary simpandonasi">Daftar Donasi</a>
+                    </form>
+
+
+                        
+                    </ul>
                 </div>
+                <hr>
+                <h2 class="text-center" style="color: white">Konfirmasi</h2>
+                <div class="list-block">
+                    <ul>
+                        <!-- Text inputs -->
+                        <form id="donasi_form" name="donasi_form"  action="action="<?=base_url('konsultasi/do_upload') ?>" enctype="multipart/form-data" >
+                        <!-- Select -->
+                        <li>
+                            <div class="item-content">
+                                <div class="item-inner">
+                                    <div class="item-title label">Nama Pengirim</div>
+                                    <div class="item-input">
+                                        <input type="text" placeholder="Nama Pengirim" >
+                                    </div>
+                                </div>
+
+                            </div>
+                        </li>
+                        <li>
+                            <div class="item-content">
+                                <div class="item-inner">
+                                    <div class="item-title label">Bank Pengirim</div>
+                                    <div class="item-input">
+                                        <input type="text" placeholder="Bank Pengirim" >
+                                    </div>
+                                </div>
+
+                            </div>
+                        </li>
+                        <li>
+                            <div class="item-content">
+                                <div class="item-inner">
+                                    <div class="item-title label">Bank Penerima</div>
+                                    <div class="item-input">
+                                        <input type="text" placeholder="Bank Penerima" >
+                                    </div>
+                                </div>
+
+                            </div>
+                        </li>
+                        <li>
+                            <div class="item-content">
+                                <div class="item-inner">
+                                    <div class="item-title label">Bukti Transfer</div>
+                                    <div class="item-input">
+                                        <input type="file" >
+                                    </div>
+                                </div>
+
+                            </div>
+                        </li>
+                        <li>
+                            <div class="item-content">
+                                <div class="item-inner">
+                                    <div class="item-title label">Tanggal Pengiriman</div>
+                                    <div class="item-input">
+                                        <input type="date" placeholder="Tanggal Pengiriman" >
+                                    </div>
+                                </div>
+
+                            </div>
+                        </li>
+                        
+                        <a onclick="simpan()" class="button button-small js-form-submit button-fill button-primary simpandonasi">Daftar Donasi</a>
+                    </form>
 
 
+                        
+                    </ul>
+                </div>
+    
+                </div>
             </div>
         </div>
+
     </div>
+</div>
 
 
 <script type="text/javascript">
-    function simpan() {
+
+  function peringatan_belum_daftar(){
+    swal("Oops!", "Mohon untuk melakukan pemilihan donasi terlebih dahulu", "warning")
+  }
+
+  function peringatan_sudah_donasi(){
+    swal("Oops!", "Anda tidak dapat melakukan donasi sebelum melakukan Konfirmasi dan diaktifkan oleh admin!", "warning")
+  }
+
+
+  function loadDonasi() {
+    jQuery(document).ready(function () {
+      // disable form kalo sudah pernah daftar.
+
+
+
+      var donasi_id = {"donasi_id": $('#donasi').val()};
+      var iddonasi;
+
+      $.ajax({
+        type: "POST",
+        dataType: "json",
+        data: donasi_id,
+        url: "<?= base_url() ?>index.php/donasi/getdonasi",
+        success: function (data) {
+          $('#donasi').html('<option value="">-- Pilih Donasi  --</option>');
+          $.each(data, function (i, data) {
+            $('#donasi').append("<option value='" + data.id_jenis + "'>" + data.jenis_donasi + "</option>");
+            return iddonasi = data.id_jenis;
+          });
+        }
+      });
+    })
+  }
+
+  $('#donasi').change(function () {
+    kategori_id = {"donasi_ids": $('#donasi').val()};
+  });
+
+  loadDonasi();
+
+
+  function simpan() {
     data =  
     {
       donasi:$('select[name=donasi]').val()
@@ -76,4 +199,69 @@
       });
     }
   }
-</script>
+
+  function form_aksi_konfirmasi() {
+    var metode =  $('.simpan_konfirmasi').html();
+
+    var data_insert = {
+      'namapengirim':$('input[name=namapengirim]').val(),
+      'bankpengirim':$('input[name=bankpengirim]').val(),
+      'bukti':$('input[name=bukti]').val(),
+      'bankpenerima':$('input[name=bankpenerima]').val(),
+      'tglpengirim':$('input[name=tglpengirim]').val(),
+      'id_donasi':$('input[name=id_donasi]').val()
+    };
+
+      //id fileinput
+      var elementId = "file_bukti_transfer";
+      var id;
+      var datas;
+      var url;
+
+      // Cek button simpan atau ubah data
+      if (metode=='Simpan') {
+        datas = data_insert;
+        url=base_url+"donasi/insert_konfirmasi";
+      } else {
+        id = $('[name=id]').val();
+        var detail = '.detail-'+id;
+        var old_logo=datas.logo;
+        datas = data_insert;
+        url=base_url+"donaturback/ubah_donatur_co";
+      }
+
+      $.ajaxFileUpload({
+        url:url,
+        data:datas,
+        dataType:"JSON",
+        type:"POST",
+        fileElementId :elementId,
+        success:function(Data){
+          $('.simpan_konfirmasi').html('Simpan');
+          swal("Info",Data,"success");
+          $('#konfirmasi_form')[0].reset();
+        },
+        error:function(data){
+          console.log(data);
+        }
+      });
+    }
+
+    function load_status_donasi(){
+      $.post(base_url+"donasi/get_info_donasi", function(data, textStatus) {
+        if (data.status==1) {
+          console.log(data.id_donasi);
+          konten_button = '<a onclick="form_aksi_konfirmasi()" class="btn btn-block btn-dark btn-theme-colored btn-sm mt-20 pt-10 pb-10 simpan_konfirmasi" data-loading-text="Please wait...">Simpan</a> ';
+          $('.info-status-donasi').fadeIn("slow").html(data.message);
+          $("#donasi_form").attr('onclick','peringatan_sudah_donasi()');
+          $("#donasi_form a, #donasi_form select").attr('readonly',true);
+          $('input[name=id_donasi]').val(data.id_donasi);
+        }else{
+          konten_button = '<span class="btn btn-block btn-dark btn-theme-colored btn-sm mt-20 pt-10 pb-10 " data-loading-text="Please wait..." onclick="peringatan_belum_daftar()">Konfirmasi Donasi</span>';
+        }
+        $(".button-konfirmasi").fadeIn('slow').html(konten_button);
+      }, "json");
+    }
+
+    load_status_donasi();
+  </script>
