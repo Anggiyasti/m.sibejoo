@@ -876,7 +876,7 @@ public function filter_pertanyaanku(){
     
     $data['files'] = array(
       APPPATH.'modules/homepage/views/m-sidebar.php',
-      APPPATH.'modules/konsultasi/views/m-daftar-konsultasi.php',
+      APPPATH.'modules/konsultasi/views/mf-ku.php',
       APPPATH.'modules/konsultasi/views/m-show-tingkat.php',
       );
 
@@ -1490,6 +1490,7 @@ function get_last_jawaban(){
     $config['base_url']    = base_url().'konsultasi/ajaxPaginationKu';
     $config['total_rows']  = $totalRec;
     $config['per_page']    = $this->perPage;
+    $config['link_func']   = 'my_search';
     $this->ajax_pagination->initialize($config);
 
     # END CONFIG AJAX PAGINATION #
@@ -1532,6 +1533,7 @@ function get_last_jawaban(){
     $config['base_url']    = base_url().'konsultasi/ajaxPaginationGrade';
     $config['total_rows']  = $totalRec;
     $config['per_page']    = $this->perPage;
+    $config['link_func']   = 'search_grade';
     $this->ajax_pagination->initialize($config);
 
     # END CONFIG AJAX PAGINATION #
@@ -1574,6 +1576,7 @@ function get_last_jawaban(){
     $config['base_url']    = base_url().'konsultasi/ajaxPaginationMentor';
     $config['total_rows']  = $totalRec;
     $config['per_page']    = $this->perPage;
+    $config['link_func']   = 'search_mentor';
     $this->ajax_pagination->initialize($config);
 
     # END CONFIG AJAX PAGINATION #

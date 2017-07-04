@@ -81,7 +81,7 @@
                             </div>
                         </li>
                         <li>
-                          <input type="text" placeholder="Cari pertanyaan lalu enter" class="form-control search-input" name="cari" id="search1">
+                          <input type="text" placeholder="Cari pertanyaan lalu enter" class="form-control search-input" name="cari" id="search1" onkeyup="search_mentor()">
                         </li>
                         <li>
                           <div class="input-submit">
@@ -140,7 +140,7 @@
           }
       });
   }
-  function search_grade(page_num) {
+  function search_mentor(page_num) {
     page_num = page_num?page_num:0;
     keyword = $('#search1').val().replace(/ /g,"-");    
           

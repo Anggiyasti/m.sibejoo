@@ -220,6 +220,16 @@ class Token_model extends CI_Model{
  		return $this->db->get('view_siswa_unvoucher')->num_rows();
 	}
 
+	// get data token siswa front
+	function get_token_siswa($id_siswa){
+		$this->db->order_by('token.id');
+		$this->db->select( '*,token.id as tokenid,token.status as tokenStatus' )->from( 'tb_token token' ); 
+		$this->db->join('tb_siswa siswa', 'token.siswaID = siswa.id', 'left outer');
+		$this->db->join('tb_pengguna', 'tb_pengguna.id = siswa.penggunaID','left outer');
+		$this->db->where('token.siswaID', $id_siswa);
+		$query = $this->db->get(); 
+		return $query->result(); 
+	}
 
 }
 ?>

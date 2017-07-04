@@ -40,6 +40,8 @@ class Token extends MX_Controller {
 		$this->hakakses = $this->gethakakses();
 		if ($this->hakakses=='admin') {
 			$this->parser->parse('admin/v-index-admin', $data);
+		} elseif ($this->hakakses=='siswa') {
+			$this->parser->parse('templating/m-index', $data); 
 		}else{
 			echo "forbidden access";    		
 		}
@@ -457,6 +459,67 @@ class Token extends MX_Controller {
       }
 
       echo json_encode( $tb_token );
+
+	}
+
+	// fungsi untuk nampilin informasi token
+	public function infotoken()
+	{
+		$data['judul_halaman'] = "Informasi Token";
+
+		$data = array(
+        'judul_halaman' => 'Sibejoo - Infomasi Token',
+        'judul_header' => 'informasi Token',
+        'judul_tingkat' => '',
+        );
+
+		$data['files'] = array(
+			APPPATH.'modules/homepage/views/m-sidebar.php',
+			APPPATH . 'modules/token/views/m-info-token.php'		
+		);	
+
+		$id = $this->session->userdata('id'); 
+
+		$list = $this->token_model->get_token_siswa($id);
+		$data['token']=array();
+
+		$no = 1;
+		foreach ( $list as $list ) {
+			$date1 = new DateTime($list->tanggal_diaktifkan);
+			$date_diaktifkan = $date1->format('d-M-Y');
+			$date_kadaluarsa =  date("d-M-Y", strtotime($date_diaktifkan)+ (24*3600*$list->masaAktif));
+
+			// hitung sisa aktif 
+			$date1 = new DateTime(date("d-M-Y"));
+			$date2 = new DateTime($date_kadaluarsa);
+			if ($date1 > $date2) {
+				$sisa_aktif = '0';
+			} else {
+				$sisa_aktif =$date2->diff($date1)->days;
+			}
+
+			$nama=$list->namaDepan." ".$list->namaBelakang;
+
+			$jenis = $list->masaAktif;
+			if ($jenis == 365 ) {
+				$jenis_donasi = 'Angel';
+			} else {
+				$jenis_donasi = 'Heroo';
+			}
+			
+			$data['token'][]=array(
+                'nama'=>$nama,
+                'nomortoken'=>$list->nomorToken,
+ 				'masa_aktif'=> $list->masaAktif,
+                'tgl_aktif'=>$date_diaktifkan,
+ 				'tgl_expired'=>$date_kadaluarsa,
+ 				'sisa' => $sisa_aktif,
+ 				'status' => $list->tokenStatus,
+ 				'jenis' => $jenis_donasi
+ 			);
+		}
+
+		$this->loadparser($data);
 
 	}
 
