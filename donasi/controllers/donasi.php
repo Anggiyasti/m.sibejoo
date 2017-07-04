@@ -40,14 +40,10 @@ function get_info_donasi(){
 
 
         $string_konten = 
-        '<div class="col-sm-12 col-md-12">
-        <h4 class="line-bottom mt-0 mt-sm-20">Donasi Status : '.$status_donasi.'</h4>
-        <ul class="review_text list-inline">
-          <li><h4 class="mt-0"><span class="text-theme-color-2">Besar Donasi :</span> '.$harga.'</h4></li>
-          <li>
-            <div class="star-rating" title="Rated 4.50 out of 5"><span style="width: 90%;">4.50</span></div>
-        </li>
-    </ul>
+        '<div class="col-sm-12 col-md-12 ml-10">
+        <h4 class="title mt-5 mb-0 ">Donasi Status : '.$status_donasi.'</h4>
+          <li><small class="mt-0"><span class="text-theme-color-2">Besar Donasi :</span> '.$harga.'</small></li>
+         
     <p>'.$deskripsi.'</p>
 </div>';
 $respon = ['status'=>1,'message'=>$string_konten,'id_donasi'=>$data['status']['id']];
