@@ -49,6 +49,9 @@
                                 </div>
                             <?php endif ?>
                         </div>
+                        <div class="col-100">
+                            <h3 class="text-center">Cara Mengisi Token</h3>
+                        </div>
                     </div>
                 </div>
             </div>

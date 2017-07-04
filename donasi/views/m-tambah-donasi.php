@@ -154,6 +154,10 @@
     </div>
 </div>
 
+<script src="http://malsup.github.com/jquery.form.js"></script>
+<!-- Script ajax upload -->
+ <script type="text/javascript" src="<?= base_url('assets/js/ajaxfileupload.js') ?>"></script>
+ <!-- END Template Main -->
 
 <script type="text/javascript">
 
