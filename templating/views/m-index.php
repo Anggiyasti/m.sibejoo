@@ -35,6 +35,7 @@
     <script src="<?= base_url('assets/sal/sweetalert-dev.js');?>"></script>
     <link rel="stylesheet" href="<?= base_url('assets/sal/sweetalert.css');?>">
     <!--<link rel="stylesheet" href="" id="theme-style">-->
+    <script type="text/javascript" src="<?=base_url('assets/mobile/bower_components/jquery/dist/jquery.min.js')?>"></script>
 </head>
 <body>
 <div class="statusbar-overlay"></div>
@@ -49,7 +50,7 @@
         ?>
 
 <!-- Footer Scripts -->
-<script type="text/javascript" src="<?=base_url('assets/mobile/bower_components/jquery/dist/jquery.min.js')?>"></script>
+
 <script type="text/javascript" src="<?=base_url('assets/mobile/bower_components/framework7/dist/js/framework7.min.js')?>"></script>
 <script type="text/javascript" src="<?=base_url('assets/mobile/bower_components/swipebox/src/js/jquery.swipebox.min.js')?>"></script>
 <script type="text/javascript" src="<?=base_url('assets/mobile/bower_components/jquery-validation/dist/jquery.validate.min.js')?>"></script>

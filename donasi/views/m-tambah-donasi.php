@@ -1,4 +1,9 @@
 <!-- Views -->
+<style type="text/css">
+  .disabled2 {
+    opacity: .4;
+  }
+</style>
 <div class="views">
     <div class="view view-main">
 
@@ -20,13 +25,30 @@
 
         <div class="pages navbar-fixed toolbar-fixed">
             <div class="page page-bg">
-                <div class="page-content">
+                <div class="page-content ">
+                
+                
 
                     <h2 class="text-center" style="color: white">Daftar Donasi</h2>
                     <div class="list-block">
                     <ul>
+                    <div class="swipeout-content ">
+                                <div class="item-content no-padding">
+                                    <div class="item-inner blog-list">
+                                        <div class="text info-status-donasi">
+                                            
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                    <div class="">
+                        
+                    </div>
                         <!-- Text inputs -->
-                        <form id="donasi_form" name="donasi_form"  action="action="<?=base_url('konsultasi/do_upload') ?>" enctype="multipart/form-data" disabled>
+
+                        <hr>
+                        <form id="donasi_form" name="donasi_form"  action="action="<?=base_url('konsultasi/do_upload') ?>"" enctype="multipart/form-data" disabled1>
                         <!-- Select -->
                         <li>
                             <div class="item-content">
@@ -55,14 +77,16 @@
                 <div class="list-block">
                     <ul>
                         <!-- Text inputs -->
-                        <form id="donasi_form" name="donasi_form"  action="action="<?=base_url('konsultasi/do_upload') ?>" enctype="multipart/form-data" >
+                        <form id="konfirmasi_form" name="job_apply_form" action="<?=base_url()?>index.php/donasi/insert_konfirmasi" method="post" enctype="multipart/form-data" >
+                        <?php echo $this->session->flashdata('msg'); ?> 
                         <!-- Select -->
                         <li>
                             <div class="item-content">
                                 <div class="item-inner">
                                     <div class="item-title label">Nama Pengirim</div>
                                     <div class="item-input">
-                                        <input type="text" placeholder="Nama Pengirim" >
+                                        <input name="namapengirim" class="form-control required" type="text" required="" placeholder="Nama Pengirim" aria-required="true">
+                                        <input name="id_donasi"  type="hidden">
                                     </div>
                                 </div>
 
@@ -73,7 +97,7 @@
                                 <div class="item-inner">
                                     <div class="item-title label">Bank Pengirim</div>
                                     <div class="item-input">
-                                        <input type="text" placeholder="Bank Pengirim" >
+                                        <input name="bankpengirim" class="form-control required" type="text" placeholder="Bank Pengirim" aria-required="true">
                                     </div>
                                 </div>
 
@@ -84,7 +108,7 @@
                                 <div class="item-inner">
                                     <div class="item-title label">Bank Penerima</div>
                                     <div class="item-input">
-                                        <input type="text" placeholder="Bank Penerima" >
+                                        <input name="bankpenerima" class="form-control required" type="text" placeholder="Bank Penerima" aria-required="true">
                                     </div>
                                 </div>
 
@@ -95,7 +119,7 @@
                                 <div class="item-inner">
                                     <div class="item-title label">Bukti Transfer</div>
                                     <div class="item-input">
-                                        <input type="file" >
+                                        <input name="bukti" class="form-control required" type="file" id="file_bukti_transfer" >
                                     </div>
                                 </div>
 
@@ -106,14 +130,16 @@
                                 <div class="item-inner">
                                     <div class="item-title label">Tanggal Pengiriman</div>
                                     <div class="item-input">
-                                        <input type="date" placeholder="Tanggal Pengiriman" >
+                                        <input name="tglpengirim" class="form-control required" type="date" placeholder="Tanggal Pengirim" aria-required="true">
                                     </div>
                                 </div>
 
                             </div>
                         </li>
+                        <div class=" button-konfirmasi">
+                       </div>
                         
-                        <a onclick="simpan()" class="button button-small js-form-submit button-fill button-primary simpandonasi">Daftar Donasi</a>
+                        <!-- <a onclick="simpan()" class="button button-small js-form-submit button-fill button-primary simpandonasi">Daftar Donasi</a> -->
                     </form>
 
 
@@ -251,7 +277,7 @@
       $.post(base_url+"donasi/get_info_donasi", function(data, textStatus) {
         if (data.status==1) {
           console.log(data.id_donasi);
-          konten_button = '<a onclick="form_aksi_konfirmasi()" class="btn btn-block btn-dark btn-theme-colored btn-sm mt-20 pt-10 pb-10 simpan_konfirmasi" data-loading-text="Please wait...">Simpan</a> ';
+          konten_button = '<a onclick="form_aksi_konfirmasi()" class="button button-small js-form-submit button-fill button-primary simpan_konfirmasi" data-loading-text="Please wait...">Simpan</a> ';
           $('.info-status-donasi').fadeIn("slow").html(data.message);
           $("#donasi_form").attr('onclick','peringatan_sudah_donasi()');
           $("#donasi_form a, #donasi_form select").attr('readonly',true);
