@@ -9,7 +9,7 @@ class Welcome extends MX_Controller {
     public function __construct() {
         parent::__construct();
         $this->load->model( 'matapelajaran/mmatapelajaran' );
-        $this->load->model( 'tingkat/MTingkat' );
+        // $this->load->model( 'tingkat/MTingkat' );
         $this->load->model( 'video/mvideos' );
         $this->load->model( 'siswa/msiswa' );
         $this->load->model( 'ortu/mOrtu' );

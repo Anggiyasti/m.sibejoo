@@ -275,7 +275,7 @@
         window.location.href = base_url + "ortuback/pesan";
     }
     function donasi() {
-        window.location.href = base_url + "welcome";
+        window.location.href = base_url + "donasi";
     }
     function logout() {
         window.location.href = base_url + "logout";
