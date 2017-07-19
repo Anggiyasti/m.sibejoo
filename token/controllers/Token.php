@@ -145,12 +145,11 @@ class Token extends MX_Controller {
 
 
 		$data['files'] = array( 
-			APPPATH.'modules/homepage/views/v-header-login.php',
-			APPPATH.'modules/token/views/v-set-token.php',
-			APPPATH.'modules/testimoni/views/v-footer.php',
+			APPPATH.'modules/homepage/views/m-sidebar.php',
+			APPPATH . 'modules/token/views/m-set-token.php'
 			);
 
-		$this->parser->parse( 'templating/index', $data );
+		$this->loadparser($data);
 	}
 
 	function drop_token(){
