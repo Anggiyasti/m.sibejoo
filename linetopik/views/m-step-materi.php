@@ -47,28 +47,31 @@
               </div>
             <div id="test">
             <div class="p-t-20" >
-              <article style="margin-left:  10px;">
-                            <div class="post-info" >
-                                <!-- <div class="date-post"><div class="day"><?=$tgl?></div><div class="month"><?=$bulan?></div></div> -->
-                                <div class="post-info-main">
-                                <center>
-                                    <div class="author-post">Nama Materi:' <?= $datMateri['judulMateri']; ?> '</div>
-                                </center>
-                                </div>
-                                <div class="comments-post">
-                                  <h1>Materi : </h1>
-                                </div>
-                            </div>
-                             <p ><?= $datMateri['isiMateri']; ?></p>
-                                
-                            </article>
+                <?php if ($datMateri==''): ?>
+                    <h1 align="center" style="color:#F2184F; font-size: 10 !important;">UPS!</h1>
+                    <h2 align="center">Maaf :(</h2>
+                    <h2 align="center">Materi Belum Tersedia.</h2>
+                <?php else: ?>
+                <article style="margin-left:  10px;">
+                    <div class="post-info" >
+                        <div class="post-info-main">
+                            <center>
+                                <div class="author-post">Nama Materi:' <?= $datMateri['judulMateri']; ?> '</div>
+                            </center>
+                        </div>
+                        <div class="comments-post">
+                            <h1>Materi : </h1>
+                        </div>
+                    </div>
+                    <p><?= $datMateri['isiMateri']; ?></p>
+                </article>
               </div>
           </div>
             </ul>
                 <ul>
             <div class="container activity p-l-r-20">
             <div class="row m-l-0">
-              <div class="col">
+              <div class="col"> 
               <!-- Start Time Line -->
               <?php 
               $i=0;
@@ -104,7 +107,7 @@
                 <p id="tes" hidden="true"><?=$i;?></p>
                 <!-- <input type="text" name="t" value="gg" hidden="true"> -->
               <!-- END Tieme line -->
-
+            <?php endif?>
               </div>
             </div>
             </ul>   

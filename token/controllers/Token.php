@@ -464,12 +464,25 @@ class Token extends MX_Controller {
 	// fungsi untuk nampilin informasi token
 	public function infotoken()
 	{
+		$token = $this->session->userdata('token');
+		if ($token=='Aktif') {
+			$pesan = "<span>Anda masih memiliki token,</span><br> sisa token ".$this->session->userdata('sisa_token')." Hari<br> Tambah token ?";
+		}else{
+			if ($token=='non-aktif') {
+				$pesan = "<span>Maaf Token belum aktif,</span><br> silahkan aktifkan dengan cara memasukan nomor token yang sudah dikirim admin";
+			}elseif ($token=='Habis') {
+				$pesan = "<span>Maaf Token anda sudah habis,</span><br> silahkan isi terlebih dahulu token anda";
+			}elseif ($token=='non-aktif') {
+			}else{
+				$pesan = "<span>Maaf anda tidak memiliki Token,</span><br> silahkan lakukan permintaan pada admin untuk mengirim token";
+			}
+		}
 		$data['judul_halaman'] = "Informasi Token";
 
 		$data = array(
         'judul_halaman' => 'Sibejoo - Infomasi Token',
         'judul_header' => 'informasi Token',
-        'judul_tingkat' => '',
+        'pesan' => $pesan	
         );
 
 		$data['files'] = array(
@@ -477,9 +490,10 @@ class Token extends MX_Controller {
 			APPPATH . 'modules/token/views/m-info-token.php'		
 		);	
 
-		$id = $this->session->userdata('id'); 
+		$id_pengguna = $this->session->userdata('id'); 
 
-		$list = $this->token_model->get_token_siswa($id);
+		$id_siswa = $this->token_model->get_id_siswa($id_pengguna);
+		$list = $this->token_model->get_token_siswa($id_siswa);
 		$data['token']=array();
 
 		$no = 1;

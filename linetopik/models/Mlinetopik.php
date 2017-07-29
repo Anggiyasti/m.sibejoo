@@ -59,7 +59,12 @@
  		$this->db->join('tb_line_materi materi','materi.id=step.materiID');
  		$this->db->where('step.UUID',$UUID);
  		$query=$this->db->get();
- 		return $query->result_array()[0];
+ 		// cek jika hasil query null
+        if($query->num_rows() == 1) {
+            return $query->result_array()[0];
+        }else{
+             return $query='';
+        }
  	}
  	// get step line berdasarkan UUID topik
  	public function get_topic_step($UUID)

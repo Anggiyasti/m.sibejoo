@@ -24,6 +24,7 @@
 
                     <div class="row mb-30" style="background-color: #fff">
                         <div class="col-100">
+                            <h1 align="center">Hi, <span class="text-theme-color-2"><?=$this->session->userdata('USERNAME') ?> !</span></h1>
                             <?php if ($token == array()): ?>
                               <h3>Anda belum memiliki token</h3>
                             <?php else: ?>
@@ -51,6 +52,13 @@
                         </div>
                         <div class="col-100">
                             <h3 class="text-center">Cara Mengisi Token</h3>
+                            <p align="center">{pesan}</p>
+                            <?php if ($this->session->userdata('sisa_token')>0): ?>
+                                <input type="text" name="kode_token" class="form-control" style="width: 100%;margin-bottom: 10px" placeholder="Masukan Kode Token" disabled="">
+                            <?php else: ?> 
+                                <input type="text" name="kode_token" class="form-control" style="width: 100%;margin-bottom: 10px" placeholder="Masukan Kode Token">
+                            <?php endif ?>
+                            <a class="button button-small js-form-submit button-fill button-primary isi_button" href="#">Isi</a> 
                         </div>
                     </div>
                 </div>
@@ -59,3 +67,27 @@
 
     </div>
 </div>
+
+<script type="">
+    $('.isi_button').click(function(){
+        kode_token = $('input[name=kode_token]').val();
+        url = base_url+"token/isi_token";
+        $.ajax({
+            type:'POST',
+            data:{kode_token:kode_token},
+            url:base_url+"token/isi_token",
+            dataType:"TEXT",
+            success:function(data){
+                if (data=="1") {     
+                    swal('Token Berhasil di aktifkan, silahkan menikmati layanan kami !');
+                   window.location = base_url+"welcome";
+                }else{
+                    swal('Kode Token salah');
+                }
+            },error:function(){
+            }
+        });
+    })
+
+
+</script>

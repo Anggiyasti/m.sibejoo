@@ -100,14 +100,53 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         $this->parser->parse('templating/m-index', $data);
     }
 
+    // fungsi untuk menghandle jika user mencoba untuk menembak dari adress bar.
+    function check_akses_learning_line(){
+        $session = $this->utilities_library->get_session();
+        if ($session['member']==1) {
+            return 'member';
+        }else{
+            return 'free';
+        }
+    }
+
+    public function member_area(){
+        $data = array(
+          'judul_halaman' => 'Sibejoo - Welcome',
+          'judul_header' => 'Welcome',
+          'judul_header2' =>'Time Line'
+          );
+
+        $data['files'] = array(
+            APPPATH . 'modules/homepage/views/m-sidebar.php',
+            APPPATH . 'modules/linetopik/views/m-pesan-member-area.php',
+            );
+        $this->parser->parse('templating/m-index', $data);
+
+
+    }
+
+    // cek status member
+    public function check_member($babID){
+        // kalo yang free member
+        if ($this->check_akses_learning_line()=='free') {
+            //select statusAksesLearningLine yang babini.
+            $status_akses_line = $this->Mlinetopik->get_akses_learning_line($babID);
+            // kalo statusAksesLearningLine 1, forbiden akses.
+            if ($status_akses_line == 1) {
+                redirect(base_url()."linetopik/member_area");
+            }
+        }
+    }
+
  	public function learningLine()
  	{
         $babID = $this->session->userdata['id_bab'];
  		$data = array(
-      'judul_halaman' => 'Sibejoo - Topik',
-      'judul_header' => 'Topik',
-      'judul_header2' =>'Time Line'
-    );
+              'judul_halaman' => 'Sibejoo - Topik',
+              'judul_header' => 'Topik',
+              'judul_header2' =>'Time Line'
+            );
 
  		$dat=$this->Mlinetopik->get_line_topik($babID);
         //list topik side bar
@@ -433,14 +472,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
         );
  		$data['datMateri']=$this->Mlinetopik->get_datMateri($UUID);
-
-         // get UUID TOPIK
-        $data['UUID']=$data['datMateri']['UUID'];
-          // get tanggal dan bulan
-        $timestamp = strtotime($data['datMateri']['date_created']);
-        $data['tgl']=date("d", $timestamp);
-        $data['bulan']=date("M", $timestamp);
-          //Start get data untuk time line side bar
+        
+        
         $dat=$this->Mlinetopik->get_topic_step2($UUID);
         $data['datline']=array();
          $step=false;

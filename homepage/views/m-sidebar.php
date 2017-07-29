@@ -196,6 +196,16 @@
                         </a>
                     </li>
                     <li>
+                        <a onclick="token()" class="item-link close-panel item-content">
+                            <div class="item-media">
+                                <i class="fa fa-users"></i>
+                            </div>
+                            <div class="item-inner">
+                                <div class="item-title">Token</div>
+                            </div>
+                        </a>
+                    </li>
+                    <li>
                         <a onclick="logout()" class="item-link close-panel item-content">
                             <div class="item-media">
                                 <i class="fa fa-sign-out"></i>
@@ -282,6 +292,9 @@
     }
     function website() {
         window.location.href = "http://google.com";
+    }
+    function edu_drive() {
+        window.location.href = base_url + "token/infotoken";
     }
 </script>
 
