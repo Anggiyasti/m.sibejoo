@@ -1,4 +1,14 @@
+<!-- START Body -->
 <style>
+    .pager li > a, .pager li > span{
+        display: inline-block;
+        padding: 5px 14px;
+        background-color: #fff;
+        border: 1px solid #ddd;
+        border-radius: 0px;
+        margin: 5px;
+    }
+
     #jwb_sisJ {
         border-radius: 12px;
         /*background: #fff;*/
@@ -9,7 +19,7 @@
         font-size: 12px;
         text-align: center;
         text-decoration: none;
-        border: 1px solid #63d3e9; 
+        border: 1px soallid #63d3e9; 
         margin-left: 27px;
         margin-top: 4px;
     }
@@ -59,11 +69,9 @@
     }
 
     .terpilih{
-        background-color: #63d3e9;
+        /*background-color: #63d3e9;*/
     }
-
 </style>
-<!-- START Body -->
 
 <body class="bgcolor-white">
     <!-- START Template Main -->
@@ -85,12 +93,8 @@
             <div class="container pt15 pb15">
                 <div class="">
                     <div class="page-header-section text-center">
-                        <img src="https://sibejoo.com/img/logo-sibejoo.png" width=""  alt>
-                        <p class="title font-alt">Pembahasan Tryout Online 
-                        </p>
-                        <?php foreach ($topaket as $key): ?>
-                            <div class="text-center"><div style="font-size:20px;"><?= $key['namato'] ?>/<?= $key['namapa'] ?></div></div>
-                        <?php endforeach ?>
+                        <img src="https://sibejoo.com/img/logo-sibejoo.png" >
+                        <p class="title font-alt">Latihan Online</p>
                     </div>
                 </div>
             </div>
@@ -102,62 +106,67 @@
         <section class="section bgcolor-white">
             <div class="container-fluid">
                 <div class="row">
-                    <div class="col-md-12">
-                        <form  id="hasil">
+                    <div class="col-md-12" style="">
+                        <!--<div class="clear-fix"></div>-->
+                        <form method="post" id="hasil">
                             <div class="col-md-12" style="margin-bottom:30">
+                                <row>
                                 <?php
-                                $i = 1;
-                                $nosoal = 1;
+                                    $i = 1;
+                                    $nosoal = 1;
                                 ?>
                                 <div id="my-slideshow" style="">
-                                    <ul class="bjqs" style="display: block;list-style: none; margin-left: -40px">
+                                     <ul class="bjqs" style="display: block;list-style: none; margin-left: -40px;">
                                         <?php foreach ($soal as $key): ?>
-                                            <li class="bjqs-slide" style="display: none;">
-                                                <div class="">
-                                                    <div class="panel panel-default" style="">
-                                                        <div class="panel-heading">
-                                                            <!-- <h1>Selamat datang</h1> -->
-                                                            <div class="row">
-                                                                <div class="col-md-6 center"><h4 class=""><h4 class="">ID Soal : <small> <?= $key['judul'] ?></small></h4></div>
-                                                            </div>
+                                        <li class="bjqs-slide" style="display: none;">
+                                            <div class="">
+                                                 <div class="panel panel-default" style="">
+                                                    <div class="panel-heading">
+                                                           <!-- <h1>Selamat datang</h1> -->
+                                                        <div class="row">
+                                                           <div class="col-md-6 center"><h4 class=""><h4 class="">ID Soal : <small> <?= $key['judul'] ?></small></h4></div>
+                                                           <div class="col-md-2"></div>
+                                                           <div class="col-md-4 text-right" style="margin-top:5"></div>
                                                         </div>
-                                                        <div class="panel-collapse">
-                                                            <div class="panel-body">
-                                                                <div class="row">
-                                                                    <div class="col-md-1 text-right">
-                                                                        <p><h4><?= $i ?>.</h4></p>
-                                                                    </div>
-                                                                    <div class="col-md-11">
-                                                                        <?php if (!empty($key['gambar'])) { ?>       
+                                                    </div>
+                                                    <div class="panel-collapse">
+                                                        <div class="panel-body">
+                                                            <div class="row">
+                                                                <div class="col-md-1 text-left">
+                                                                    <p><h4><?= $i ?>.</h4></p>
+                                                                </div>
+                                                                <div class="col-md-11">
+                                                                    <?php if (!empty($key['gambar'])) { ?>       
                                                                             <img src="<?= base_url('./assets/image/soal/' . $key['gambar']) ?>">   
                                                                         <?php } ?>
                                                                         <h5><?= $key['soal'] ?></h5>
                                                                         <br>
-                                                                    </div>  
                                                                 </div>
-                                                                <div class="row">
-                                                                    <div class="col-md-10 col-md-offset-1">
-                                                                        <?php
+                                                               
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col-md-10 col-md-offset-1">  
+                                                                    <?php
                                                                         $k = $key['soalid'];
                                                                         $pilihan = array("A", "B", "C", "D", "E");
                                                                         $indexpil = 0;
 
                                                                         $jawaban = $key['jaw'];
-                                                                        ?>
+                                                                    ?>
 
-                                                                        <?php foreach ($pil as $row): ?>
-                                                                            <?php if ($row['pilid'] == $k) { ?>
-                                                                                <div class="mb10">
-                                                                                        <!-- <label id="pil[<?= $row['pilid']; ?>]" onclick="changeColor('pil[<?= $row['pilid']; ?>]')" style="border:1px solid #63d3e9; padding: 5px;width:100% "> -->
-                                                                                         <label id="pil[<?= $row['pilid']; ?>]" onclick="changeColor('pil[<?= $row['pilid']; ?>]')" style="border:1px solid #63d3e9; padding: 5px;width:100%; <?php 
+                                                                    <?php foreach ($pil as $row): ?>
+                                                                        <?php if ($row['pilid'] == $k) { ?>
+                                                                            <div class="mb10">
+                                                                                 <label id="pil[<?= $row['pilid']; ?>]" onclick="changeColor('pil[<?= $row['pilid']; ?>]')" style="border:1px solid #63d3e9; padding: 5px;width:100%; <?php 
                                                                                                 if ($jawaban == $row['pilpil']) {
                                                                                                     echo "background-color:#63d3e9";
                                                                                                 }else{
 
                                                                                                 }
                                                                                             ?>">
-                                                                                            <input type="radio" id="<?= $i ?>" value="<?= $row['pilpil'].$pilihan[$indexpil]; ?>" name="pil[<?= $row['pilid']; ?>]" onclick="updateColor(<?= $i ?>)">
-                                                                                            <div class ="btn"><?=  $pilihan[$indexpil];?>.
+                                                                                        <input type="radio" id="<?= $i ?>" value="<?= $row['pilpil'] ?>" name="pil[<?= $row['pilid'] ?>]">
+                                                                                        
+                                                                                        <div class ="btn"><?=  $pilihan[$indexpil];?>.
                                                                                             </div>
                                                                                              <?php
                                                                                             if (empty($row['pilgam'])) {
@@ -167,26 +176,27 @@
                                                                                             <img src="<?= base_url('./assets/image/soal/' . $row['pilgam']) ?>">
                                                                                             <?php } ?>
                                                                                             <?= $row['piljaw'] ?>
-                                                                                             <?php 
+                                                                                            <?php 
                                                                                                 if ($jawaban == $row['pilpil']) {
                                                                                                     echo "&nbsp&nbsp&nbsp&nbsp<i class='fa fa-check fa-2x' aria-hidden='true'></i>";
                                                                                                 }else{
 
                                                                                                 }
                                                                                             ?>
+                                                                                            
                                                                                             <?php $indexpil++;?>
                                                                                         </label>  
-                                                                                </div>
-                                                                                <?php
-                                                                            } else {
-                                                                                // $indexpil=0;
-                                                                            }
+                                                                            </div>
+                                                                            <?php
+                                                                                } else {
+                                                                                    // $indexpil = 0;
+                                                                                }
                                                                             ?>
-                                                                        <?php endforeach ?>
-                                                                    </div>
-                                                                </div>
-                                                                <hr>
-                                                                <div class="row">      
+                                                                    <?php endforeach ?>
+                                                                </div>   
+                                                            </div>
+                                                            <hr>
+                                                             <div class="row">      
                                                                     <div class="col-md-10 col-md-offset-1">
                                                                         <?php
                                                                             // if ($key['status_pembahasan'] == 0) {
@@ -237,38 +247,39 @@
                                                                         
                                                                     <!-- </div> -->
                                                                 </div>
-                                                            </div>
-                                                        </div>
+                                                        </div>   
                                                     </div>
-                                                </div>
-                                            </li>
-                                            <?php
-                                            $i++;
-                                            $nosoal++;
-                                            ?>
-                                        <?php endforeach; ?>
-                                    </ul>
+                                                 </div>
+                                            </div>
+                                        </l1>
+                                        <?php
+                                        $i++;
+                                        $nosoal++;
+                                        ?>
+                                <?php endforeach; ?>
+                                     </ul>
                                 </div>
-                                <div>
-                                    <div class="col-md-6">
-                                        <button class="btn btn-info btn-block" id="btnPrev">Sebelumnya</button>
-                                        <!--<button type="button" class="btn btn-primary btn-block">Selanjutnya</button>-->
+                                    <div>
+                                        <div class="col-md-6">
+                                            <button class="btn btn-info btn-block" id="btnPrev">Sebelumnya</button>
+                                            <!--<button type="button" class="btn btn-primary btn-block">Selanjutnya</button>-->
+                                        </div>
+                                        <div class="col-md-6"> 
+                                            <button class="btn btn-info btn-block" id="btnNext">Selanjutnya</button>
+                                            <!--<button type="button" class="btn btn-teal btn-block">Sebelumnya</button>-->
+                                        </div>
                                     </div>
-                                    <div class="col-md-6"> 
-                                        <button class="btn btn-info btn-block" id="btnNext">Selanjutnya</button>
-                                        <!--<button type="button" class="btn btn-teal btn-block">Sebelumnya</button>-->
-                                    </div>
-                                </div>
+
+
+                            </row>  
                             </div>
 
-                            <!--<div style="clear: both"></div>-->
                             <div class="col-md-4">
                                 <div class="panel panel-default"  style="min-height:170px;">
                                     <!--panel heading/header--> 
                                     <div class="panel-heading">
                                         <div class="row">
                                             <!--<div class="text-center"><h4>Lembar Jawaban</h4></div>-->
-                                            <!-- <div class="text-center"> <h4><span id="timer"></span></h4></div> -->  
                                             <div class="text-center"> <h4><span>Nomor Soal</span></h4></div>
                                         </div>
                                     </div>
@@ -277,30 +288,42 @@
                                     <div class="panel-collapse">
                                         <div class="panel-body">
                                             <div class="row">
-                                                <div class="col-md-10 col-md-offset-1">
-                                                    <!--<li class="pageNumbers"></li>-->
-                                                    <div class="ljk" style="">
+                                                    <div class="col-md-10 col-md-offset-1">
+                                                        <!--<li class="pageNumbers"></li>-->
+                                                        <div class="ljk" style="">
                                                         <?php
                                                         $nojwb = 1;
                                                         foreach ($soal as $jwb) {
                                                             ?>
-                                                            <div id="flex-item" >
-                                                                <a id ="nom_sisS" class ="go_slide btn" style ="border:1px solid #63d3e9" alt="<?= $nojwb ?>"><?= $nojwb ?></a>
-                                                            </div>
-                                                            <?php
-                                                            $nojwb++;
+                                                            <div id ="flex-item" >
+                                                            <?php if ($jwb['status_koreksi']==1): ?>
+               <a id ="nom_sisS" class ="go_slide btn btn-success"  alt="<?= $nojwb ?>" title="Jawaban Benar"><?= $nojwb ?></a>               
+              <?php endif ?>
+
+              <?php if ($jwb['status_koreksi']==2): ?>
+               <a id ="nom_sisS" class ="go_slide btn btn-danger" alt="<?= $nojwb ?>" title="Jawaban Salah"><?= $nojwb ?></a>               
+              <?php endif ?>
+
+              <?php if ($jwb['status_koreksi']==3): ?>
+               <a id ="nom_sisS" class ="go_slide btn btn-warning"  alt="<?= $nojwb ?>" title="Jawaban Kosong"><?= $nojwb ?></a>               
+              <?php endif ?>
+
+
+              </div>
+              <?php
+              $nojwb++;
                                                         }
                                                         ?>
-                                                    </div>
+                                                        </div>
 
-                                                </div>
-                                                <!--</ul>-->  
+                                                    </div>
+                                                    <!--</ul>-->  
 
                                                 <div class="clear" style="clear:both"></div>
 
                                                 <div class="col-md-12" style="">
                                                     <hr> 
-                                                    <a href="<?=base_url('tryout')?>" class="btn btn-info btn-block" >Pembahasan Selesai</a>
+                                                    <a href="<?=base_url('tryout')?>"class="btn btn-info btn-block">Pembahasan Selesai</a>
                                                 </div>
 
                                             </div>
@@ -313,7 +336,6 @@
                         </form>
                     </div>
                 </div>
-
             </div>
         </section>
 

@@ -1,3 +1,10 @@
+<style type="text/css">
+    .warna{
+        color: #ffffff;
+    }
+</style>
+
+
 <div class="pages navbar-fixed toolbar-fixed">
     <div data-page="login" class="page page-bg">
 
@@ -10,12 +17,12 @@
 
                 <div class="list login-form-box">
                     <br>
-                    <div class="text-center">
+                    <div class="text-center warna" >
                         <h1>Registrasi</h1>
-                        <span class="semibold">Catatan :</span>&nbsp;&nbsp;Silahkan diisi semua.
+                        <span class="semibold" >Catatan :</span>&nbsp;&nbsp;Silahkan diisi semua.
                     </div> <br>
                     <form action="<?= base_url() ?>index.php/register/savesiswa" method="post">
-                        <h4 class="text-center">IDENTITAS PENGGUNA</h4>
+                        <h4 class="text-center warna" >IDENTITAS PENGGUNA</h4>
                          <label class="item item-input">
                             <svg version="1.1" xmlns="http://www.w3.org/2000/svg"
                                  xmlns:xlink="http://www.w3.org/1999/xlink" width="20" height="20" viewBox="0 0 20 20">
@@ -60,7 +67,7 @@
                             <input type="text" name="nokontak" placeholder="No Kontak" value="<?php echo set_value('nokontak'); ?>" required/>
                             <span class="text-danger"> <?php echo form_error('nokontak'); ?></span>
                         </label> 
-                        <h4 class="text-center">IDENTITAS SEKOLAH</h4>
+                        <h4 class="text-center warna" >IDENTITAS SEKOLAH</h4>
                         <label class="item item-input"> 
                             <select class="form-control" name="tingkatID" id="tingkatID" required>
 
@@ -114,7 +121,7 @@
                             </svg>
                             <input type="text" placeholder="Alamat Sekolah" name="alamatsekolah" value="<?php echo set_value('alamatsekolah'); ?>" required />
                         </label>
-                        <h4 class="text-center">Akun</h4>
+                        <h4 class="text-center warna">Akun</h4>
                         <label class="item item-input">
                             <svg version="1.1" xmlns="http://www.w3.org/2000/svg"
                                  xmlns:xlink="http://www.w3.org/1999/xlink" width="20" height="20" viewBox="0 0 20 20">

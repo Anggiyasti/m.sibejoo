@@ -16,7 +16,7 @@
                 </div>
 
                 <div class="list login-form-box">
-                    <div class="text-center">
+                    <div class="text-center" >
                         <?php if ($this->session->flashdata('notif') != '') {
 
                     ?>

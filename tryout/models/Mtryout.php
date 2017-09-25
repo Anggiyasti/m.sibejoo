@@ -433,6 +433,16 @@ function get_paket_reported_score($datas){
     $result = $this->db->query($query);
     return $result->result_array();        
 }
+ // get report paket by mmid
+    function get_report_paket_by_mmid($data){
+        $this->db->select('*');
+        $this->db->from('tb_report-paket rp');
+        $this->db->join('`tb_pengguna` p ',' `rp`.`id_pengguna` = `p`.`id`'); 
+        $this->db->where('rp.id_mm-tryout-paket',$data['id_mm']);
+        $this->db->where('p.id',$data['id_pengguna']);
+        $query = $this->db->get(); 
+        return $query->result()[0]; 
+    }
 
 }
 

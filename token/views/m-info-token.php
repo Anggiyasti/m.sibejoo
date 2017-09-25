@@ -54,9 +54,9 @@
                             <h3 class="text-center">Cara Mengisi Token</h3>
                             <p align="center">{pesan}</p>
                             <?php if ($this->session->userdata('sisa_token')>0): ?>
-                                <input type="text" name="kode_token" class="form-control" style="width: 100%;margin-bottom: 10px" placeholder="Masukan Kode Token" disabled="">
+                                <input type="text" name="kode_token" class="form-control" style="width: 99%;margin-bottom: 10px" placeholder="Masukan Kode Token" disabled="">
                             <?php else: ?> 
-                                <input type="text" name="kode_token" class="form-control" style="width: 100%;margin-bottom: 10px" placeholder="Masukan Kode Token">
+                                <input type="text" name="kode_token" class="form-control" style="width: 99%;margin-bottom: 10px" placeholder="Masukan Kode Token">
                             <?php endif ?>
                             <a class="button button-small js-form-submit button-fill button-primary isi_button" href="#">Isi</a> 
                         </div>
