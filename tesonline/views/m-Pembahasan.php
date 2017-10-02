@@ -289,11 +289,22 @@
                                                         foreach ($soal as $jwb) {
                                                             ?>
                                                             <div id ="flex-item" >
-                                                                <!-- <div id ="jwb_sisJ" class ="jwb<?= $nojwb ?>"></div> -->
-                                                                <a href ="#" id ="nom_sisS" class ="go_slide btn" style ="border:1px solid #63d3e9" alt="<?= $nojwb ?>"><?= $nojwb ?></a>
-                                                            </div>
-                                                            <?php
-                                                            $nojwb++;
+                                                            <?php if ($jwb['status_koreksi']==1): ?>
+               <a id ="nom_sisS" class ="go_slide btn btn-success"  alt="<?= $nojwb ?>" title="Jawaban Benar"><?= $nojwb ?></a>               
+              <?php endif ?>
+
+              <?php if ($jwb['status_koreksi']==2): ?>
+               <a id ="nom_sisS" class ="go_slide btn btn-danger" alt="<?= $nojwb ?>" title="Jawaban Salah"><?= $nojwb ?></a>               
+              <?php endif ?>
+
+              <?php if ($jwb['status_koreksi']==3): ?>
+               <a id ="nom_sisS" class ="go_slide btn btn-warning"  alt="<?= $nojwb ?>" title="Jawaban Kosong"><?= $nojwb ?></a>               
+              <?php endif ?>
+
+
+              </div>
+              <?php
+              $nojwb++;
                                                         }
                                                         ?>
                                                         </div>

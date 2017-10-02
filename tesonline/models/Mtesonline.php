@@ -88,6 +88,17 @@ class Mtesonline extends CI_Model {
         return $query->result_array();
 
     }
+
+     // get report latihan by mmid
+    function get_report_latihan($data){
+        $this->db->select('*');
+        $this->db->from('tb_report-latihan rl');
+        $this->db->join('`tb_pengguna` p ',' `rl`.`id_pengguna` = `p`.`id`'); 
+        $this->db->where('rl.id_latihan',$data['id_lat']);
+        $this->db->where('p.id',$data['id_pengguna']);
+        $query = $this->db->get(); 
+        return $query->result()[0]; 
+    }
 }
 
 ?>

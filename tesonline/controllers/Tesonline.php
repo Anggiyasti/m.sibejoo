@@ -193,6 +193,8 @@ public function cekJawaban() {
     $koreksi = array();
     $idSalah = array();
     $jumlahsoal = sizeOf($result);
+    $status = false;
+    $rekap_hasil_koreksi = [];
     for ($i = 0; $i < sizeOf($result); $i++) {
         $id = $result[$i]['soalid'];
             // $data[$id];
@@ -200,20 +202,29 @@ public function cekJawaban() {
             $kosong++;
             $koreksi[] = $result[$i]['soalid'];
             $idSalah[] = $i;
+            $status = 3;
         } else if ($data[$id] == $result[$i]['jawaban']) {
             $benar++;
+            $status = 1;
         } else {
             $salah++;
             $koreksi[] = $result[$i]['soalid'];
             $idSalah[] = $i;
+            $status=2;
         }
+        $tempt['id_soal'] = $id;
+                $tempt['status_koreksi'] = $status;
+                $rekap_hasil_koreksi[] = $tempt;
     }
+
+    $json_rekap_hasil_koreksi = json_encode($rekap_hasil_koreksi);
     $hasil['id_latihan'] = $id_latihan;
     $hasil['id_pengguna'] = $this->session->userdata['id'];
     $hasil['jmlh_kosong'] = $kosong;
     $hasil['jmlh_benar'] = $benar;
     $hasil['jmlh_salah'] = $salah;
     $hasil['total_nilai'] = $benar;
+    $hasil['rekap_hasil_koreksi'] = $json_rekap_hasil_koreksi;
 
     if ($level == "mudah") {
         $hasil['skore'] = floatval($benar * ($jumlahsoal * 10) / ($this->input->post('durasi') / 60));
@@ -235,10 +246,26 @@ public function pembahasanlatihan() {
     if (!empty($this->session->userdata['id_pembahasan'])) {
         $id = $this->session->userdata['id_pembahasan'];
         $this->load->view('templating/t-headersoal');
+        if ($this->session->userdata('HAKAKSES')=='ortu') {
+                $data = ['id_lat'=>$id, 'id_pengguna'=>$this->mtesonline->get_id_pengguna_by_ortu()];
+            } else {
+                $data = ['id_lat'=>$id, 'id_pengguna'=>$this->session->userdata('id')];
+            }
 
+        $data['rekap_jawaban'] = json_decode($this->mtesonline->get_report_latihan($data)->rekap_hasil_koreksi);
+        $jumlah_soal = count($data['rekap_jawaban']);
         $query = $this->load->mtesonline->get_soal($id);
         $data['soal'] = $query['soal'];
         $data['pil'] = $query['pil'];
+
+        for ($i=0; $i <$jumlah_soal ; $i++) { 
+                $rekap_id = $data['rekap_jawaban'][$i]->id_soal;
+                $soal_id = $data['soal'][$i]['soalid'];
+
+                if ($rekap_id == $soal_id) {
+                    $data['soal'][$i]['status_koreksi'] = $data['rekap_jawaban'][$i]->status_koreksi;
+                }
+            }
 
         $this->load->view('m-Pembahasan.php', $data);
         $this->load->view('footerpembahasan.php');
